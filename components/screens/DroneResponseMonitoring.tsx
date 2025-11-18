@@ -14,6 +14,7 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
     'Standby for Luc\'s assessment...'
   ]);
   const [showToast, setShowToast] = useState(true);
+  const [manualControlActive, setManualControlActive] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -21,6 +22,17 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
     }, 5000);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleManualControl = () => {
+    if (manualControlActive) return;
+    setManualControlActive(true);
+    setShowToast(false);
+    setStatusMessages(prev => [
+      'Manual control engaged. Operator override active.',
+      'Autonomous path temporarily disabled.',
+      ...prev,
+    ]);
+  };
 
   return (
     <div className="min-h-screen bg-neutral">
@@ -43,6 +55,12 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
         <div className="mb-8">
           <h1 className="text-2xl font-semibold text-white mb-2 tracking-tight">Drone Response Monitoring</h1>
           <p className="text-sm text-white/50">Live feed from Drone {drone.id}</p>
+          {manualControlActive && (
+            <div className="mt-3 inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-medium px-3 py-1.5 rounded-lg">
+              <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+              Manual control active — joystick override engaged
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-10 gap-6">
@@ -144,10 +162,21 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
             {/* Action Buttons */}
             <div className="space-y-2">
               <button
-                onClick={onThreatAssessment}
-                className="w-full bg-blue-500 text-white font-medium py-3 px-4 rounded-lg hover:bg-blue-600 transition-all duration-200 min-h-[48px] shadow-lg shadow-blue-500/20"
+                onClick={handleManualControl}
+                disabled={manualControlActive}
+                className={`w-full font-medium py-3 px-4 rounded-lg transition-all duration-200 min-h-[48px] shadow-lg ${
+                  manualControlActive
+                    ? 'bg-blue-500/30 text-white/60 cursor-not-allowed shadow-transparent border border-white/10'
+                    : 'bg-blue-500 text-white hover:bg-blue-600 shadow-blue-500/20'
+                }`}
               >
-                Manual Control
+                {manualControlActive ? 'Manual Control Active' : 'Engage Manual Control'}
+              </button>
+              <button
+                onClick={onThreatAssessment}
+                className="w-full bg-white/5 text-white font-medium py-3 px-4 rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[48px] border border-white/10"
+              >
+                Proceed to Threat Assessment
               </button>
               <button className="w-full bg-white/5 text-white font-medium py-3 px-4 rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[48px] border border-white/10">
                 Thermal View
