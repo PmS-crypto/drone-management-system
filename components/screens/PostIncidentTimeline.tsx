@@ -71,11 +71,11 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
 
   return (
     <div className="min-h-screen bg-neutral">
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-6 py-10">
         {/* Header */}
-        <div className="mb-10">
+        <div className="mb-8">
           <h1 className="text-[24px] font-semibold text-white mb-2 tracking-tight leading-[1.3]">Post-Incident Timeline</h1>
-          <p className="text-sm text-white/50">Review incident: Gallery 3, 2:37 AM</p>
+          <p className="text-sm text-white/50 leading-relaxed">Review incident: Gallery 3, 2:37 AM</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -100,7 +100,7 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
                       }}
                     >
                       {/* Timeline Dot */}
-                        <div className={`relative z-10 w-12 h-12 rounded-full border flex items-center justify-center text-lg ${colors.dot} group-hover:scale-110 transition-all duration-200`}>
+                        <div className={`relative z-10 w-12 h-12 rounded-full border-2 flex items-center justify-center text-lg ${colors.dot} ${selectedEventId === event.id ? 'scale-110 ring-2 ring-blue-500/30' : ''} group-hover:scale-110 transition-all duration-150`}>
                         {getEventIcon(event.type)}
                       </div>
 
@@ -114,8 +114,8 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
                             </span>
                           )}
                         </div>
-                          <div className="text-white font-medium mb-1 text-sm">{event.event}</div>
-                          <div className="text-white/60 text-sm">{event.details}</div>
+                          <div className={`text-white mb-1 text-sm ${selectedEventId === event.id ? 'font-semibold' : 'font-medium'}`}>{event.event}</div>
+                          <div className="text-white/60 text-sm leading-relaxed">{event.details}</div>
                         {event.notes && event.notes.length > 0 && (
                             <div className="mt-2 text-xs text-white/40">
                             {event.notes.length} note{event.notes.length !== 1 ? 's' : ''}

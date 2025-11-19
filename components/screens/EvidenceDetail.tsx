@@ -23,17 +23,17 @@ export default function EvidenceDetail({ data, onBack }: EvidenceDetailProps) {
 
   return (
     <div className="min-h-screen bg-neutral">
-      <div className="max-w-5xl mx-auto px-6 py-12">
+      <div className="max-w-5xl mx-auto px-6 py-10">
         {/* Header */}
-        <div className="mb-10">
-            <button
-              onClick={onBack}
-            className="text-white/60 hover:text-white/80 mb-4 flex items-center gap-2 text-sm transition-colors duration-200"
-            >
-              ← Back to Timeline
-            </button>
+        <div className="mb-8">
+          <button
+            onClick={onBack}
+            className="text-white/60 hover:text-white/80 mb-4 flex items-center gap-2 text-sm transition-colors duration-150"
+          >
+            ← Back to Timeline
+          </button>
           <h1 className="text-[24px] font-semibold text-white mb-2 tracking-tight leading-[1.3]">Evidence Detail</h1>
-          <p className="text-sm text-white/50">{event.event} — {event.time}</p>
+          <p className="text-sm text-white/50 leading-relaxed">{event.event} — {event.time}</p>
         </div>
 
         <div className="space-y-6">

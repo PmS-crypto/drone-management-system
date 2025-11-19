@@ -36,18 +36,18 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
 
   return (
     <div className="min-h-screen bg-neutral">
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="max-w-4xl mx-auto px-6 py-10">
         {/* Header */}
-        <div className="mb-10">
+        <div className="mb-8">
           <h1 className="text-[24px] font-semibold text-white mb-2 tracking-tight leading-[1.3]">Threat Assessment</h1>
           <p className="text-sm text-white/50 leading-relaxed">Categorize and broadcast threat assessment</p>
         </div>
 
         {/* Sensor Data Aggregation */}
-        <div className="mb-8">
+        <div className="mb-6">
           <div className="mb-3">
             <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Sensor Data</h2>
-            </div>
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
               { label: 'Motion', value: `${sensors.motion}%` },
@@ -67,11 +67,11 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
         </div>
 
         {/* Guided Decision Tree */}
-        <div className="mb-8">
+        <div className="mb-6">
           <div className="mb-3">
             <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Guided Decision Tree</h2>
           </div>
-          <p className="text-sm text-white/60 mb-6">
+          <p className="text-sm text-white/60 mb-4 leading-relaxed">
             Based on sensor pattern, this is likely:
           </p>
 
@@ -157,7 +157,7 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
         </div>
 
         {/* Visual Reference */}
-        <div className="mb-8">
+        <div className="mb-6">
           <div className="mb-3">
             <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Visual Reference</h2>
           </div>
@@ -167,10 +167,10 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
         </div>
 
         {/* Broadcast Recipients */}
-        <div className="mb-8">
+        <div className="mb-6">
           <div className="mb-3">
             <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Broadcast Recipients</h2>
-            </div>
+          </div>
           <div className="flex items-center gap-3">
             <div className="flex -space-x-2">
               {['M', 'I', 'S'].map((initial, idx) => (

@@ -81,7 +81,7 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
       <div className="lg:pl-64">
         <div className="max-w-7xl mx-auto px-6 py-12">
           {/* Header */}
-          <div className="mb-10">
+          <div className="mb-8">
             <h1 className="text-[24px] font-semibold text-white mb-2 tracking-tight leading-[1.3]">Dashboard</h1>
             <p className="text-sm text-white/50 leading-relaxed">
               {mode === 'crisis' 

@@ -50,11 +50,11 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
         </div>
       )}
       
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-6 py-10">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-[24px] font-semibold text-white mb-2 tracking-tight leading-[1.3]">Drone Response Monitoring</h1>
-          <p className="text-sm text-white/50">Live feed from Drone {drone.id}</p>
+          <p className="text-sm text-white/50 leading-relaxed">Live feed from Drone {drone.id}</p>
           {manualControlActive && (
             <div className="mt-3 inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-medium px-3 py-1.5 rounded-lg">
               <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
@@ -70,7 +70,7 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
             <div className="bg-white/[0.02] border border-white/5 rounded-lg overflow-hidden shadow-md">
               <div className="bg-white/[0.02] border-b border-white/5 px-4 py-3 flex justify-between items-center">
                 <div className="flex items-center gap-2.5">
-                  <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                  <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse-slow"></span>
                   <span className="text-[11px] font-semibold text-white/60 uppercase tracking-[0.5px]">Live</span>
                 </div>
                 <span className="text-white/50 text-xs font-mono">{timestamp}</span>
@@ -128,7 +128,7 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
                     <span className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Battery</span>
                     <span className="text-base font-semibold text-white/80">{drone.battery.toFixed(0)}%</span>
                   </div>
-                  <div className="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+                  <div className="w-full bg-white/5 rounded-full h-2 overflow-hidden shadow-sm">
                     <div 
                       className="bg-green-500 h-full rounded-full transition-all duration-500"
                       style={{ width: `${drone.battery}%` }}

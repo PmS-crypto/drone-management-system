@@ -39,11 +39,11 @@ export default function GuardCoordination({ data, onComplete }: GuardCoordinatio
 
   return (
     <div className="min-h-screen bg-neutral">
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="max-w-4xl mx-auto px-6 py-10">
         {/* Header */}
-        <div className="mb-10">
-          <h1 className="text-2xl font-semibold text-white mb-2 tracking-tight">Guard Coordination</h1>
-          <p className="text-sm text-white/50">Coordinate field response with security guards</p>
+        <div className="mb-8">
+          <h1 className="text-[24px] font-semibold text-white mb-2 tracking-tight leading-[1.3]">Guard Coordination</h1>
+          <p className="text-sm text-white/50 leading-relaxed">Coordinate field response with security guards</p>
         </div>
 
         {/* Alert Summary */}
@@ -99,10 +99,10 @@ export default function GuardCoordination({ data, onComplete }: GuardCoordinatio
             {guards.positions.map((pos: string) => (
               <div
                 key={pos}
-                className={`bg-white/[0.02] border rounded-lg p-4 text-center transition-all duration-200 ${
+                className={`bg-white/[0.02] border rounded-lg p-4 text-center transition-all duration-150 shadow-sm ${
                   messageSent 
-                    ? 'border-green-500/30 bg-green-500/5' 
-                    : 'border-white/5 hover:border-white/10'
+                    ? 'border-green-500/30 bg-green-500/5 shadow-md' 
+                    : 'border-white/5 hover:border-white/10 hover:shadow-md'
                 }`}
               >
                 <div className="text-base font-semibold text-white mb-1">Guard {pos}</div>
