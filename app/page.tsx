@@ -52,7 +52,7 @@ export default function Home() {
 
   const renderScreen = () => {
     if (currentScreen === 'dashboard') {
-      return <Dashboard data={data} mode={mode} onNavigate={handleScreenChange} />;
+      return <Dashboard data={data} mode={mode} onNavigate={handleScreenChange} onModeChange={handleModeChange} />;
     }
 
     if (mode === 'crisis') {

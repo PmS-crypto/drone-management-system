@@ -12,13 +12,14 @@ interface DashboardProps {
   data: any;
   mode: 'crisis' | 'analysis';
   onNavigate: (screen: Screen) => void;
+  onModeChange?: (mode: 'crisis' | 'analysis') => void;
 }
 
 /**
  * Dashboard - Trimmed, Contextual, Glanceable
  * Removed redundancy, added contextual comparisons, tighter spacing
  */
-export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
+export default function Dashboard({ data, mode, onNavigate, onModeChange }: DashboardProps) {
   // Loading state with skeleton
   if (!data) {
     return (
@@ -76,7 +77,14 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
       trend: activeAlerts > 0 ? 'up' as const : 'neutral' as const,
       comparison: 'vs last hour',
       delta: activeAlerts > 0 ? '+1' : '0',
-      onClick: () => onNavigate('alert'),
+      onClick: () => {
+        if (mode === 'analysis' && onModeChange) {
+          onModeChange('crisis');
+          setTimeout(() => onNavigate('alert'), 0);
+        } else {
+          onNavigate('alert');
+        }
+      },
       statusDot: activeAlerts > 0 ? 'red' as const : 'green' as const,
       sparkline: activeAlerts > 0 ? generateSparkline('up', 0) : generateSparkline('neutral', 0),
     },
@@ -86,7 +94,14 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
       trend: 'neutral' as const,
       comparison: '1 of 3',
       delta: undefined,
-      onClick: () => onNavigate('drone'),
+      onClick: () => {
+        if (mode === 'analysis' && onModeChange) {
+          onModeChange('crisis');
+          setTimeout(() => onNavigate('drone'), 0);
+        } else {
+          onNavigate('drone');
+        }
+      },
       statusDot: 'green' as const,
     },
     {
@@ -95,7 +110,14 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
       trend: (alert?.sensorHealth || 95) >= 90 ? 'up' as const : 'down' as const,
       comparison: 'target 95%',
       delta: (alert?.sensorHealth || 95) >= 95 ? undefined : '+1',
-      onClick: () => onNavigate('alert'),
+      onClick: () => {
+        if (mode === 'analysis' && onModeChange) {
+          onModeChange('crisis');
+          setTimeout(() => onNavigate('alert'), 0);
+        } else {
+          onNavigate('alert');
+        }
+      },
       statusDot: (alert?.sensorHealth || 95) >= 90 ? 'green' as const : 'orange' as const,
       sparkline: generateSparkline((alert?.sensorHealth || 95) >= 90 ? 'up' : 'down', alert?.sensorHealth || 95),
     },
@@ -105,7 +127,15 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
       trend: (timeline?.length || 0) > 5 ? 'up' as const : 'neutral' as const,
       comparison: 'last 24h',
       delta: (timeline?.length || 0) > 5 ? `+${(timeline?.length || 0) - 5}` : undefined,
-      onClick: () => onNavigate('timeline'),
+      onClick: () => {
+        if (mode === 'crisis' && onModeChange) {
+          onModeChange('analysis');
+          // Small delay to ensure mode change completes before navigation
+          setTimeout(() => onNavigate('timeline'), 0);
+        } else {
+          onNavigate('timeline');
+        }
+      },
       statusDot: (timeline?.length || 0) > 5 ? 'orange' as const : 'green' as const,
     },
   ];
@@ -139,7 +169,7 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
         />
 
         {/* KPI Grid - Editorial/Contra Aesthetic */}
-        <section className="mb-6" aria-label="Overview metrics" style={{ marginBottom: 'var(--section-gap)' }}>
+        <section className="mb-6" aria-label="Overview metrics" style={{ marginBottom: 'var(--section-gap)', paddingTop: 'var(--spacing-2xl)' }}>
           <h2 className="text-[var(--font-h2)] font-[var(--weight-medium)] mb-4" style={{ textTransform: 'capitalize', color: 'var(--text-primary)', marginBottom: 'var(--spacing-lg)' }}>Overview</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3" style={{ gap: 'var(--spacing-md)' }}>
             {stats.map((stat, index) => {

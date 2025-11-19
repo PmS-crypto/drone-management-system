@@ -302,12 +302,20 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
 
         {/* Action Button */}
         <Button
-          variant={broadcastSent ? 'secondary' : selectedCategory ? 'primary' : 'quiet'}
+          variant={broadcastSent ? 'secondary' : selectedCategory ? 'primary' : 'outline'}
           className="w-full"
           style={broadcastSent ? {
             backgroundColor: 'var(--bg-success)',
             color: 'var(--color-success)',
             borderColor: 'var(--color-success)',
+          } : !selectedCategory ? {
+            color: 'var(--text-primary)',
+            opacity: 0.6,
+          } : selectedCategory ? {
+            background: 'linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-hover) 100%)',
+            color: 'var(--text-inverse)',
+            opacity: 1,
+            border: 'none',
           } : {}}
           onClick={handleBroadcast}
           disabled={!selectedCategory || broadcastSent}

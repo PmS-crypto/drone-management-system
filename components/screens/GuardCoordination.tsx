@@ -100,7 +100,12 @@ export default function GuardCoordination({ data, onComplete }: GuardCoordinatio
                     backgroundColor: 'var(--bg-success)',
                     color: 'var(--color-success)',
                     borderColor: 'var(--color-success)',
-                  } : {}}
+                  } : {
+                    background: 'linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-hover) 100%)',
+                    color: 'var(--text-inverse)',
+                    opacity: 1,
+                    border: 'none',
+                  }}
                 >
                   {messageSent ? '✓ Message Sent' : 'Send to Guards'}
                 </Button>
@@ -190,7 +195,7 @@ export default function GuardCoordination({ data, onComplete }: GuardCoordinatio
         </section>
 
         {/* Complete Button */}
-        {messageSent && statusTicker.length > 2 && (
+        {messageSent && (
           <Button 
             variant="primary" 
             className="w-full" 

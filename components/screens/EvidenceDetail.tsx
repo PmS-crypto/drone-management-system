@@ -27,7 +27,7 @@ export default function EvidenceDetail({ data, onBack }: EvidenceDetailProps) {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-6" style={{ paddingTop: 'var(--section-gap)' }}>
         {/* Header */}
         <div className="mb-10" style={{ marginBottom: 'var(--section-gap)' }}>
-          <Button variant="tertiary" onClick={onBack} className="mb-6" style={{ marginBottom: 'var(--spacing-2xl)' }}>
+          <Button variant="tertiary" onClick={onBack} className="mb-6 -ml-4 sm:-ml-6 lg:-ml-8" style={{ marginBottom: 'var(--spacing-2xl)' }}>
             ← Back to Timeline
           </Button>
           <Header
