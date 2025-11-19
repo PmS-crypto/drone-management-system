@@ -46,7 +46,7 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
         {/* Sensor Data Aggregation */}
         <div className="mb-8">
           <div className="mb-3">
-            <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider">Sensor Data</h2>
+            <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Sensor Data</h2>
             </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
@@ -57,9 +57,9 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
             ].map((sensor, idx) => (
               <div 
                 key={idx}
-                className="bg-white/[0.02] border border-white/5 rounded-lg p-4 hover:bg-white/[0.03] hover:border-white/10 transition-all duration-200"
+                className="bg-white/[0.02] border border-white/5 rounded-lg p-4 hover:bg-white/[0.03] hover:border-white/10 transition-all duration-150 shadow-sm hover:shadow-md"
               >
-                <div className="text-xs font-medium text-white/40 mb-2">{sensor.label}</div>
+                <div className="text-[11px] font-semibold text-white/40 mb-2 uppercase tracking-[0.5px]">{sensor.label}</div>
                 <div className="text-xl font-semibold text-white tracking-tight">{sensor.value}</div>
             </div>
             ))}
@@ -69,7 +69,7 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
         {/* Guided Decision Tree */}
         <div className="mb-8">
           <div className="mb-3">
-            <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider">Guided Decision Tree</h2>
+            <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Guided Decision Tree</h2>
           </div>
           <p className="text-sm text-white/60 mb-6">
             Based on sensor pattern, this is likely:
@@ -79,22 +79,22 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
             {/* Option A: Human Intruder */}
             <button
               onClick={() => handleCategorySelect('human')}
-              className={`w-full text-left p-5 rounded-lg border transition-all duration-200 ${
+              className={`w-full text-left p-5 rounded-lg border transition-all duration-150 ${
                 selectedCategory === 'human'
-                  ? 'border-red-500/30 bg-red-500/5 shadow-lg shadow-red-500/5'
-                  : 'border-white/5 bg-white/[0.02] hover:border-white/10 hover:bg-white/[0.03]'
+                  ? 'border-red-500/30 bg-red-500/5 shadow-md'
+                  : 'border-white/5 bg-white/[0.02] hover:border-white/10 hover:bg-white/[0.03] shadow-sm hover:shadow-md'
               }`}
             >
               <div className="flex justify-between items-start mb-3">
                 <div>
-                  <div className="text-xs font-medium text-white/40 mb-1">Option A</div>
+                  <div className="text-[11px] font-semibold text-white/40 mb-1 uppercase tracking-[0.5px]">Option A</div>
                   <span className="text-base font-medium text-white">Human Intruder</span>
                 </div>
                 <span className={`text-2xl font-semibold ${selectedCategory === 'human' ? 'text-red-400' : 'text-white/80'}`}>
                   {threatAssessment.humanIntruder}%
                 </span>
               </div>
-              <div className="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+              <div className="w-full bg-white/5 rounded-full h-2 overflow-hidden shadow-sm">
                 <div 
                   className="bg-red-500 h-full rounded-full transition-all duration-500"
                   style={{ width: `${threatAssessment.humanIntruder}%` }}
@@ -105,22 +105,22 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
             {/* Option B: Equipment Malfunction */}
             <button
               onClick={() => handleCategorySelect('equipment')}
-              className={`w-full text-left p-5 rounded-lg border transition-all duration-200 ${
+              className={`w-full text-left p-5 rounded-lg border transition-all duration-150 ${
                 selectedCategory === 'equipment'
-                  ? 'border-amber-500/30 bg-amber-500/5 shadow-lg shadow-amber-500/5'
-                  : 'border-white/5 bg-white/[0.02] hover:border-white/10 hover:bg-white/[0.03]'
+                  ? 'border-amber-500/30 bg-amber-500/5 shadow-md'
+                  : 'border-white/5 bg-white/[0.02] hover:border-white/10 hover:bg-white/[0.03] shadow-sm hover:shadow-md'
               }`}
             >
               <div className="flex justify-between items-start mb-3">
                 <div>
-                  <div className="text-xs font-medium text-white/40 mb-1">Option B</div>
+                  <div className="text-[11px] font-semibold text-white/40 mb-1 uppercase tracking-[0.5px]">Option B</div>
                   <span className="text-base font-medium text-white">Equipment Malfunction</span>
                 </div>
                 <span className={`text-2xl font-semibold ${selectedCategory === 'equipment' ? 'text-amber-400' : 'text-white/80'}`}>
                   {threatAssessment.equipmentMalfunction}%
                 </span>
               </div>
-              <div className="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+              <div className="w-full bg-white/5 rounded-full h-2 overflow-hidden shadow-sm">
                 <div 
                   className="bg-amber-500 h-full rounded-full transition-all duration-500"
                   style={{ width: `${threatAssessment.equipmentMalfunction}%` }}
@@ -131,22 +131,22 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
             {/* Option C: Environmental */}
             <button
               onClick={() => handleCategorySelect('environmental')}
-              className={`w-full text-left p-5 rounded-lg border transition-all duration-200 ${
+              className={`w-full text-left p-5 rounded-lg border transition-all duration-150 ${
                 selectedCategory === 'environmental'
-                  ? 'border-green-500/30 bg-green-500/5 shadow-lg shadow-green-500/5'
-                  : 'border-white/5 bg-white/[0.02] hover:border-white/10 hover:bg-white/[0.03]'
+                  ? 'border-green-500/30 bg-green-500/5 shadow-md'
+                  : 'border-white/5 bg-white/[0.02] hover:border-white/10 hover:bg-white/[0.03] shadow-sm hover:shadow-md'
               }`}
             >
               <div className="flex justify-between items-start mb-3">
                 <div>
-                  <div className="text-xs font-medium text-white/40 mb-1">Option C</div>
+                  <div className="text-[11px] font-semibold text-white/40 mb-1 uppercase tracking-[0.5px]">Option C</div>
                   <span className="text-base font-medium text-white">Environmental</span>
                 </div>
                 <span className={`text-2xl font-semibold ${selectedCategory === 'environmental' ? 'text-green-400' : 'text-white/80'}`}>
                   {threatAssessment.environmental}%
                 </span>
               </div>
-              <div className="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+              <div className="w-full bg-white/5 rounded-full h-2 overflow-hidden shadow-sm">
                 <div 
                   className="bg-green-500 h-full rounded-full transition-all duration-500"
                   style={{ width: `${threatAssessment.environmental}%` }}
@@ -159,9 +159,9 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
         {/* Visual Reference */}
         <div className="mb-8">
           <div className="mb-3">
-            <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider">Visual Reference</h2>
+            <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Visual Reference</h2>
           </div>
-          <div className="bg-black/40 border border-white/5 rounded-lg aspect-video flex items-center justify-center overflow-hidden">
+          <div className="bg-black/40 border border-white/5 rounded-lg aspect-video flex items-center justify-center overflow-hidden shadow-md">
             <div className="text-sm text-white/30">Drone Camera Feed Thumbnail</div>
           </div>
         </div>
@@ -169,7 +169,7 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
         {/* Broadcast Recipients */}
         <div className="mb-8">
           <div className="mb-3">
-            <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider">Broadcast Recipients</h2>
+            <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Broadcast Recipients</h2>
             </div>
           <div className="flex items-center gap-3">
             <div className="flex -space-x-2">

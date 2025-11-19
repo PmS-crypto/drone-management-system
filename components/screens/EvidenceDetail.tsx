@@ -32,17 +32,17 @@ export default function EvidenceDetail({ data, onBack }: EvidenceDetailProps) {
             >
               ← Back to Timeline
             </button>
-          <h1 className="text-2xl font-semibold text-white mb-2 tracking-tight">Evidence Detail</h1>
+          <h1 className="text-[24px] font-semibold text-white mb-2 tracking-tight leading-[1.3]">Evidence Detail</h1>
           <p className="text-sm text-white/50">{event.event} — {event.time}</p>
         </div>
 
         <div className="space-y-6">
           {/* Video Evidence */}
           {event.video && (
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg overflow-hidden">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg overflow-hidden shadow-md">
               <div className="bg-white/[0.02] border-b border-white/5 px-4 py-3 flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-medium text-white/60 uppercase tracking-wider">Playback</span>
+                  <span className="text-[11px] font-semibold text-white/60 uppercase tracking-[0.5px]">Playback</span>
                 </div>
                 <span className="text-white/50 text-xs font-mono">{event.time}</span>
               </div>
@@ -57,12 +57,12 @@ export default function EvidenceDetail({ data, onBack }: EvidenceDetailProps) {
 
           {/* Sensor Data Snapshot */}
           {event.sensorData && (
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6">
-              <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-4">Sensor Data Snapshot</h2>
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
+              <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Sensor Data Snapshot</h2>
               <div className="grid grid-cols-3 gap-3">
                 {Object.entries(event.sensorData).map(([key, value]: [string, any]) => (
                   <div key={key} className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
-                    <div className="text-white/40 text-xs uppercase mb-2 tracking-wider">{key}</div>
+                    <div className="text-[11px] font-semibold text-white/40 uppercase mb-2 tracking-[0.5px]">{key}</div>
                     <div className="text-white font-semibold text-2xl">{value}%</div>
                   </div>
                 ))}
@@ -72,8 +72,8 @@ export default function EvidenceDetail({ data, onBack }: EvidenceDetailProps) {
 
           {/* Decision Notes */}
           {event.notes && event.notes.length > 0 && (
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6">
-              <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-4">Decision Notes</h2>
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
+              <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Decision Notes</h2>
               <div className="space-y-3">
                 {event.notes.map((note: any, index: number) => (
                   <div key={index} className="bg-white/[0.02] border-l-2 border-blue-500/30 rounded-lg p-4">
@@ -87,8 +87,8 @@ export default function EvidenceDetail({ data, onBack }: EvidenceDetailProps) {
 
           {/* User Annotations */}
           {annotations.length > 0 && (
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6">
-              <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-4">Your Annotations</h2>
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
+              <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Your Annotations</h2>
               <div className="space-y-3">
                 {annotations.map((note, index) => (
                   <div key={index} className="bg-blue-500/5 border border-blue-500/20 rounded-lg p-4">
@@ -100,8 +100,8 @@ export default function EvidenceDetail({ data, onBack }: EvidenceDetailProps) {
           )}
 
           {/* Add Annotation */}
-          <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6">
-            <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-4">Add Annotation</h2>
+          <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
+            <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Add Annotation</h2>
             <textarea
               value={annotation}
               onChange={(e) => setAnnotation(e.target.value)}

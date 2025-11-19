@@ -74,18 +74,18 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="mb-10">
-          <h1 className="text-2xl font-semibold text-white mb-2 tracking-tight">Post-Incident Timeline</h1>
+          <h1 className="text-[24px] font-semibold text-white mb-2 tracking-tight leading-[1.3]">Post-Incident Timeline</h1>
           <p className="text-sm text-white/50">Review incident: Gallery 3, 2:37 AM</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Timeline (Left - 40%) */}
           <div className="lg:col-span-5">
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6">
-              <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-6">Timeline</h2>
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
+              <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-6">Timeline</h2>
               <div className="relative">
                 {/* Vertical Line */}
-                <div className="absolute left-6 top-0 bottom-0 w-px bg-white/10"></div>
+                <div className="absolute left-6 top-0 bottom-0 w-[2px] bg-white/10"></div>
 
                 {/* Timeline Events */}
                 <div className="space-y-4">
@@ -105,7 +105,7 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
                       </div>
 
                       {/* Event Card */}
-                        <div className={`flex-1 border rounded-lg p-4 ${colors.bg} ${colors.border} ${selectedEventId === event.id ? 'ring-2 ring-blue-500/30 border-blue-500/40' : ''} group-hover:border-white/20 transition-all duration-200`}>
+                        <div className={`flex-1 border rounded-lg p-4 ${colors.bg} ${colors.border} ${selectedEventId === event.id ? 'ring-2 ring-blue-500/30 border-blue-500/40 shadow-md' : 'shadow-sm'} group-hover:border-white/20 group-hover:shadow-md transition-all duration-150`}>
                         <div className="flex justify-between items-start mb-2">
                             <div className="font-mono text-white/50 text-xs">{event.time}</div>
                           {event.video && (
@@ -156,8 +156,8 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
 
           {/* Evidence Panel (Right - 60%) */}
           <div className="lg:col-span-7">
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6">
-              <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-6">Evidence Panel</h2>
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
+              <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-6">Evidence Panel</h2>
               {selectedEventId ? (() => {
                 const event = timeline.find((e: any) => e.id === selectedEventId);
                 if (!event) return null;
@@ -165,10 +165,10 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
                   <div className="space-y-6 animate-fade-in">
                     {/* Video Evidence */}
                     {event.video && (
-                      <div className="bg-white/[0.02] border border-white/5 rounded-lg overflow-hidden">
+                      <div className="bg-white/[0.02] border border-white/5 rounded-lg overflow-hidden shadow-md">
                         <div className="bg-white/[0.02] border-b border-white/5 px-4 py-3 flex justify-between items-center">
                           <div className="flex items-center gap-2">
-                            <span className="text-xs font-medium text-white/60 uppercase tracking-wider">Playback</span>
+                            <span className="text-[11px] font-semibold text-white/60 uppercase tracking-[0.5px]">Playback</span>
                           </div>
                           <span className="text-white/50 text-xs font-mono">{event.time}</span>
                         </div>
@@ -183,12 +183,12 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
 
                     {/* Sensor Data Snapshot */}
                     {event.sensorData && (
-                      <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
-                        <h3 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-4">Sensor Data at {event.time}</h3>
+                      <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4 shadow-sm">
+                        <h3 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Sensor Data at {event.time}</h3>
                         <div className="grid grid-cols-3 gap-3">
                           {Object.entries(event.sensorData).map(([key, value]: [string, any]) => (
                             <div key={key} className="bg-white/[0.02] border border-white/5 rounded-lg p-3">
-                              <div className="text-white/40 text-xs uppercase mb-2 tracking-wider">{key}</div>
+                              <div className="text-[11px] font-semibold text-white/40 uppercase mb-2 tracking-[0.5px]">{key}</div>
                               <div className="text-white font-semibold text-xl">{value}%</div>
                             </div>
                           ))}
@@ -198,8 +198,8 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
 
                     {/* Decision Notes Preview */}
                     {event.notes && event.notes.length > 0 && (
-                      <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
-                        <h3 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-4">Decision Notes</h3>
+                      <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4 shadow-sm">
+                        <h3 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Decision Notes</h3>
                         <div className="space-y-3">
                           {event.notes.slice(0, 2).map((note: any, index: number) => (
                             <div key={index} className="bg-white/[0.02] border-l-2 border-blue-500/30 rounded-lg p-3">

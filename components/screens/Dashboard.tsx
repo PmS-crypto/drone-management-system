@@ -91,12 +91,12 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {stats.map((stat, index) => (
               <div
                 key={index}
                 onClick={stat.onClick}
-                className={`${stat.bg} ${stat.border} border rounded-lg p-5 hover:border-white/20 transition-all duration-200 ${
+                className={`${stat.bg} ${stat.border} border rounded-lg p-6 hover:border-white/20 transition-all duration-150 shadow-sm hover:shadow-md ${
                   stat.onClick ? 'cursor-pointer' : ''
                 }`}
               >
@@ -104,7 +104,7 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
                   <span className="text-2xl">{stat.icon}</span>
                   <span className={`text-2xl font-semibold ${stat.color}`}>{stat.value}</span>
                 </div>
-                <div className="text-xs font-medium text-white/40 uppercase tracking-wider">
+                <div className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">
                   {stat.label}
                 </div>
               </div>
@@ -120,10 +120,10 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
                 </h2>
                 <div className="space-y-2">
                   {quickActions.map((action, index) => (
-                    <button
+                      <button
                       key={index}
                       onClick={() => onNavigate(action.screen)}
-                      className="w-full flex items-center gap-3 px-4 py-3 bg-white/[0.02] border border-white/5 rounded-lg hover:bg-white/[0.03] hover:border-white/10 transition-all duration-200 text-left"
+                      className="w-full flex items-center gap-3 px-4 py-3 bg-white/[0.02] border border-white/5 rounded-lg hover:bg-white/[0.03] hover:border-white/10 transition-all duration-150 text-left shadow-sm hover:shadow-md"
                     >
                       <span className="text-lg">{action.icon}</span>
                       <span className="text-sm font-medium text-white/80">{action.label}</span>
@@ -144,7 +144,7 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
                     recentIncidents.map((incident: any, index: number) => (
                       <div
                         key={index}
-                        className="flex items-start gap-4 p-4 bg-white/[0.02] border border-white/5 rounded-lg hover:border-white/10 transition-all duration-200"
+                        className="flex items-start gap-4 p-4 bg-white/[0.02] border border-white/5 rounded-lg hover:border-white/10 transition-all duration-150 shadow-sm hover:shadow-md"
                       >
                         <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
                           <span className="text-lg">

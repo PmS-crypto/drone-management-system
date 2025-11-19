@@ -48,7 +48,7 @@ export default function GuardCoordination({ data, onComplete }: GuardCoordinatio
 
         {/* Alert Summary */}
         <div className="bg-amber-500/5 border border-amber-500/20 rounded-lg p-5 mb-6">
-          <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-4">Alert Summary</h2>
+          <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Alert Summary</h2>
           <div className="space-y-2.5 text-sm">
             <div className="flex items-center gap-2">
               <span className="text-white/40 font-medium">Location:</span>
@@ -66,8 +66,8 @@ export default function GuardCoordination({ data, onComplete }: GuardCoordinatio
         </div>
 
         {/* Message Composition */}
-        <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 mb-6">
-          <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-4">Message to Guards</h2>
+        <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 mb-6 shadow-md">
+          <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Message to Guards</h2>
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -93,8 +93,8 @@ export default function GuardCoordination({ data, onComplete }: GuardCoordinatio
         </div>
 
         {/* Guard Positions */}
-        <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 mb-6">
-          <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-4">Guard Positions</h2>
+        <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 mb-6 shadow-md">
+          <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Guard Positions</h2>
           <div className="grid grid-cols-3 gap-3">
             {guards.positions.map((pos: string) => (
               <div
@@ -115,8 +115,8 @@ export default function GuardCoordination({ data, onComplete }: GuardCoordinatio
         </div>
 
         {/* Real-time Status Ticker */}
-        <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 mb-6">
-          <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-4">Status Ticker</h2>
+        <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 mb-6 shadow-md">
+          <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Status Ticker</h2>
           <div className="space-y-3 max-h-64 overflow-y-auto">
             {statusTicker.length === 0 ? (
               <div className="text-white/30 text-sm">Waiting for updates...</div>
@@ -124,7 +124,7 @@ export default function GuardCoordination({ data, onComplete }: GuardCoordinatio
               statusTicker.map((status, index) => (
                 <div
                   key={index}
-                  className="flex items-start gap-3 text-white/70 text-sm animate-fade-in"
+                  className="flex items-start gap-3 text-white/70 text-sm animate-fade-in-up"
                 >
                   <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 flex-shrink-0"></span>
                   <span>{status}</span>

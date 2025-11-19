@@ -53,7 +53,7 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-2xl font-semibold text-white mb-2 tracking-tight">Drone Response Monitoring</h1>
+          <h1 className="text-[24px] font-semibold text-white mb-2 tracking-tight leading-[1.3]">Drone Response Monitoring</h1>
           <p className="text-sm text-white/50">Live feed from Drone {drone.id}</p>
           {manualControlActive && (
             <div className="mt-3 inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-medium px-3 py-1.5 rounded-lg">
@@ -67,11 +67,11 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
           {/* Primary: Live Camera Feed (70%) */}
           <div className="lg:col-span-7 space-y-4">
             {/* Live Feed */}
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg overflow-hidden">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg overflow-hidden shadow-md">
               <div className="bg-white/[0.02] border-b border-white/5 px-4 py-3 flex justify-between items-center">
                 <div className="flex items-center gap-2.5">
                   <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-                  <span className="text-xs font-medium text-white/60 uppercase tracking-wider">Live</span>
+                  <span className="text-[11px] font-semibold text-white/60 uppercase tracking-[0.5px]">Live</span>
                 </div>
                 <span className="text-white/50 text-xs font-mono">{timestamp}</span>
               </div>
@@ -87,7 +87,7 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
             </div>
 
             {/* Real-time Status Updates */}
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4 shadow-md">
               <div className="text-sm text-white/70 space-y-3">
                 {statusMessages.map((msg, index) => (
                   <div key={index} className="flex items-start gap-3 animate-fade-in">
@@ -102,8 +102,8 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
           {/* Secondary: Map & Status (30%) */}
           <div className="lg:col-span-3 space-y-4">
             {/* Building Map */}
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
-              <h3 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-3">Building Map</h3>
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4 shadow-md">
+              <h3 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-3">Building Map</h3>
               <div className="bg-black/20 rounded-lg aspect-square relative border border-white/5 overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center text-white/20 text-xs">
                   Building Layout
@@ -120,12 +120,12 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
             </div>
 
             {/* Status Indicators */}
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
-              <h3 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-4">Status</h3>
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4 shadow-md">
+              <h3 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Status</h3>
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-xs font-medium text-white/40 uppercase tracking-wider">Battery</span>
+                    <span className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Battery</span>
                     <span className="text-base font-semibold text-white/80">{drone.battery.toFixed(0)}%</span>
                   </div>
                   <div className="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
@@ -138,21 +138,21 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
 
                 <div className="pt-2 border-t border-white/5">
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-xs font-medium text-white/40 uppercase tracking-wider">Distance to Threat</span>
+                    <span className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Distance to Threat</span>
                     <span className="text-base font-semibold text-white/80">{drone.distance.toFixed(1)}m</span>
                   </div>
                 </div>
 
                 <div className="pt-2 border-t border-white/5">
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-xs font-medium text-white/40 uppercase tracking-wider">Altitude</span>
+                    <span className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Altitude</span>
                     <span className="text-base font-semibold text-white/80">{drone.altitude}m</span>
                   </div>
                 </div>
 
                 <div className="pt-2 border-t border-white/5">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs font-medium text-white/40 uppercase tracking-wider">Status</span>
+                    <span className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Status</span>
                     <span className="text-sm font-medium text-white/70">📹 {drone.status}</span>
                   </div>
                 </div>
