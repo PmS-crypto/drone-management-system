@@ -8,36 +8,37 @@ interface StatusPillProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 /**
- * StatusPill - Linear-style issue priority/tags
- * Small, pill-shaped, medium weight text, subtle background opacity
+ * StatusPill - Uses CSS variables from unified token system
+ * NO hard-coded colors, all from CSS variables
  */
 export function StatusPill({ variant = 'default', size = 'sm', className, children, ...props }: StatusPillProps) {
-  const variants = {
-    default: 'bg-accent-soft text-accent-primary',
-    success: 'bg-success/10 text-success',
-    warning: 'bg-warning/10 text-warning',
-    error: 'bg-alert/10 text-alert',
-    info: 'bg-info/10 text-info',
-    high: 'bg-alert/15 text-alert font-semibold',
+  const variantStyles = {
+    default: { backgroundColor: 'var(--accent-light)', color: 'var(--accent-primary)' },
+    success: { backgroundColor: 'var(--bg-success)', color: 'var(--color-success)' },
+    warning: { backgroundColor: 'var(--bg-warning)', color: 'var(--color-warning)' },
+    error: { backgroundColor: 'var(--bg-alert)', color: 'var(--color-alert)' },
+    info: { backgroundColor: 'var(--bg-info)', color: 'var(--color-info)' },
+    high: { backgroundColor: 'var(--bg-alert)', color: 'var(--color-alert)', fontWeight: 'var(--weight-medium)' },
   };
 
   const sizes = {
-    sm: 'px-2 py-0.5 text-label',
-    md: 'px-2.5 py-1 text-bodySmall',
+    sm: { padding: 'var(--spacing-xs) var(--spacing-sm)', fontSize: 'var(--font-label)' },
+    md: { padding: 'var(--spacing-sm) var(--spacing-md)', fontSize: 'var(--font-body)' },
   };
 
   return (
     <span
       className={cn(
-        'inline-flex items-center font-medium rounded-full',
-        variants[variant],
-        sizes[size],
+        'inline-flex items-center font-[var(--weight-medium)] rounded-[var(--radius-full)]',
         className
       )}
+      style={{
+        ...variantStyles[variant],
+        ...sizes[size],
+      }}
       {...props}
     >
       {children}
     </span>
   );
 }
-

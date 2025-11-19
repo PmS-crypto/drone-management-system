@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Sidebar from '@/components/Sidebar';
+import { Sidebar } from '@/src/components/ui';
 import Dashboard from '@/components/screens/Dashboard';
 import CrisisAlertCard from '@/components/screens/CrisisAlertCard';
 import DroneResponseMonitoring from '@/components/screens/DroneResponseMonitoring';
@@ -52,46 +52,30 @@ export default function Home() {
 
   const renderScreen = () => {
     if (currentScreen === 'dashboard') {
-      return (
-        <div className="lg:pl-[240px]">
-          <Dashboard data={data} mode={mode} onNavigate={handleScreenChange} />
-        </div>
-      );
+      return <Dashboard data={data} mode={mode} onNavigate={handleScreenChange} />;
     }
 
     if (mode === 'crisis') {
       switch (currentScreen) {
         case 'alert':
           return (
-            <div className="lg:pl-[240px]">
-              <CrisisAlertCard
-                data={data}
-                onDeploy={() => handleScreenChange('drone')}
-                onManualReview={() => handleScreenChange('threat')}
-              />
-            </div>
+            <CrisisAlertCard
+              data={data}
+              onDeploy={() => handleScreenChange('drone')}
+              onManualReview={() => handleScreenChange('threat')}
+            />
           );
         case 'drone':
           return (
-            <div className="lg:pl-[240px]">
-              <DroneResponseMonitoring
-                data={data}
-                onThreatAssessment={() => handleScreenChange('threat')}
-              />
-            </div>
+            <DroneResponseMonitoring
+              data={data}
+              onThreatAssessment={() => handleScreenChange('threat')}
+            />
           );
         case 'threat':
-          return (
-            <div className="lg:pl-[240px]">
-              <ThreatAssessment data={data} onBroadcast={() => {}} />
-            </div>
-          );
+          return <ThreatAssessment data={data} onBroadcast={() => {}} />;
         case 'coordination':
-          return (
-            <div className="lg:pl-[240px]">
-              <GuardCoordination data={data} onComplete={() => handleScreenChange('dashboard')} />
-            </div>
-          );
+          return <GuardCoordination data={data} onComplete={() => handleScreenChange('dashboard')} />;
         default:
           return null;
       }
@@ -99,24 +83,18 @@ export default function Home() {
       switch (currentScreen) {
         case 'timeline':
           return (
-            <div className="lg:pl-[240px]">
-              <PostIncidentTimeline
-                data={data}
-                onEventClick={(eventId) => {
-                  handleScreenChange('evidence');
-                  setTimeout(() => {
-                    setData((prev: any) => ({ ...prev, selectedEventId: eventId }));
-                  }, 0);
-                }}
-              />
-            </div>
+            <PostIncidentTimeline
+              data={data}
+              onEventClick={(eventId) => {
+                handleScreenChange('evidence');
+                setTimeout(() => {
+                  setData((prev: any) => ({ ...prev, selectedEventId: eventId }));
+                }, 0);
+              }}
+            />
           );
         case 'evidence':
-          return (
-            <div className="lg:pl-[240px]">
-              <EvidenceDetail data={data} onBack={() => handleScreenChange('timeline')} />
-            </div>
-          );
+          return <EvidenceDetail data={data} onBack={() => handleScreenChange('timeline')} />;
         default:
           return null;
       }
@@ -124,14 +102,16 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-bg-base text-text-primary">
+    <main className="min-h-screen flex" style={{ backgroundColor: 'var(--bg-base)', color: 'var(--text-primary)' }}>
       <Sidebar
         mode={mode}
         currentScreen={currentScreen}
         onNavigate={handleScreenChange}
         onModeChange={handleModeChange}
       />
-      {renderScreen()}
+      <div className="flex-1">
+        {renderScreen()}
+      </div>
     </main>
   );
 }

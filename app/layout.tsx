@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeProvider } from "@/src/design-system/theme-provider";
+import { NoiseTexture } from "@/src/components/ui/NoiseTexture";
 
 export const metadata: Metadata = {
   title: "FlytBase Art Security Dashboard",
@@ -12,9 +14,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning>
+        <ThemeProvider>
+          <NoiseTexture />
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
-

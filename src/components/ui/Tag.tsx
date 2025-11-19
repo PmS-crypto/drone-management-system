@@ -7,28 +7,34 @@ interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
   children: React.ReactNode;
 }
 
+/**
+ * Tag - Uses CSS variables from unified token system
+ * NO hard-coded colors, all from CSS variables
+ */
 export function Tag({ variant = 'default', size = 'md', className, children, ...props }: TagProps) {
-  const variants = {
-    default: 'bg-bg-surface text-text-secondary border-border-default',
-    success: 'bg-bg-surface text-success border-border-default',
-    warning: 'bg-bg-surface text-warning border-border-default',
-    error: 'bg-bg-surface text-alert border-border-default',
-    info: 'bg-bg-surface text-info border-border-default',
+  const variantStyles = {
+    default: { backgroundColor: 'var(--bg-surface2)', color: 'var(--text-secondary)', borderColor: 'var(--border-subtle)' },
+    success: { backgroundColor: 'var(--bg-surface2)', color: 'var(--color-success)', borderColor: 'var(--border-subtle)' },
+    warning: { backgroundColor: 'var(--bg-surface2)', color: 'var(--color-warning)', borderColor: 'var(--border-subtle)' },
+    error: { backgroundColor: 'var(--bg-surface2)', color: 'var(--color-alert)', borderColor: 'var(--border-subtle)' },
+    info: { backgroundColor: 'var(--bg-surface2)', color: 'var(--color-info)', borderColor: 'var(--border-subtle)' },
   };
 
   const sizes = {
-    sm: 'px-2 py-0.5 text-label',
-    md: 'px-2.5 py-1 text-label',
+    sm: { padding: 'var(--spacing-xs) var(--spacing-sm)', fontSize: 'var(--font-label)' },
+    md: { padding: 'var(--spacing-sm) var(--spacing-md)', fontSize: 'var(--font-body)' },
   };
 
   return (
     <span
       className={cn(
-        'inline-flex items-center font-medium rounded-sm border',
-        variants[variant],
-        sizes[size],
+        'inline-flex items-center font-[var(--weight-medium)] rounded-[var(--radius-button)] border',
         className
       )}
+      style={{
+        ...variantStyles[variant],
+        ...sizes[size],
+      }}
       {...props}
     >
       {children}

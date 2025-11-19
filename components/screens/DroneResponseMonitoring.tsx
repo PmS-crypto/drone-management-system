@@ -37,74 +37,80 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
   };
 
   return (
-    <div className="min-h-screen bg-bg-base animate-fade-in">
+    <div className="min-h-screen animate-fade-in" style={{ backgroundColor: 'var(--bg-base)' }}>
       {/* Toast Notification */}
       {showToast && (
-        <div className="fixed top-6 right-6 glass-strong rounded-xl p-5 shadow-lg z-50 animate-fade-in-up max-w-sm border-warning/30">
-          <div className="font-semibold mb-2 text-body">Drone 2 Already Dispatching</div>
-          <div className="text-bodySmall text-text-secondary mb-4 leading-relaxed">
+        <div 
+          className="fixed top-6 right-6 rounded-[var(--radius-card)] p-5 shadow-[var(--shadow-lg)] z-50 animate-fade-in-up max-w-sm border"
+          style={{
+            backgroundColor: 'var(--bg-surface1)',
+            borderColor: 'var(--color-warning)',
+            padding: 'var(--card-padding)',
+          }}
+        >
+          <div className="font-[var(--weight-semibold)] mb-2 text-[var(--font-body)]" style={{ color: 'var(--text-primary)' }}>Drone 2 Already Dispatching</div>
+          <div className="text-[var(--font-meta)] mb-4" style={{ color: 'var(--text-secondary)', marginBottom: 'var(--spacing-lg)' }}>
             Drone 2 already dispatching autonomously. You can take manual control at any time.
           </div>
-          <Button variant="ghost" size="sm" className="w-full bg-bg-raised hover:bg-bg-surface border-border-default" onClick={() => setShowToast(false)}>
+          <Button variant="secondary" size="sm" className="w-full" onClick={() => setShowToast(false)}>
             Dismiss
           </Button>
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto px-gutter py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6" style={{ paddingTop: 'var(--section-gap)' }}>
         <Header
+          className="mt-0"
           title="Drone Response Monitoring"
           description={`Live feed from Drone ${drone.id}`}
         >
           {manualControlActive && (
             <StatusPill variant="info" size="md" className="inline-flex items-center gap-2">
-              <span className="w-2 h-2 bg-accent-primary rounded-full animate-pulse" />
+              <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: 'var(--accent-primary)' }} />
               Manual control active — joystick override engaged
             </StatusPill>
           )}
         </Header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-10 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-10 gap-6" style={{ gap: 'var(--spacing-2xl)' }}>
           {/* Primary: Live Camera Feed (70%) */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-7 space-y-6" style={{ gap: 'var(--spacing-2xl)' }}>
             {/* Live Feed */}
-            <Card variant="glass" className="overflow-hidden">
-              <div className="bg-bg-raised border-b border-border-default px-6 py-4 flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                  <span className="w-2.5 h-2.5 bg-alert rounded-full animate-pulse"></span>
-                  <span className="text-label font-semibold text-text-tertiary uppercase tracking-wider">Live</span>
+            <Card variant="default" className="overflow-hidden" padding="md" style={{ padding: 0 }}>
+              <div className="border-b px-6 py-4 flex justify-between items-center" style={{ backgroundColor: 'var(--bg-surface2)', borderColor: 'var(--border-subtle)', padding: 'var(--spacing-lg) var(--spacing-2xl)' }}>
+                <div className="flex items-center gap-3" style={{ gap: 'var(--spacing-md)' }}>
+                  <span className="w-2.5 h-2.5 rounded-full animate-pulse" style={{ backgroundColor: 'var(--color-alert)' }}></span>
+                  <span className="text-[var(--font-label)] font-[var(--weight-semibold)] uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Live</span>
                 </div>
-                <span className="text-meta text-text-tertiary font-mono">{timestamp}</span>
+                <span className="text-[var(--font-meta)] tabular-nums" style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-family)' }}>{timestamp}</span>
               </div>
-              <div className="bg-black/60 aspect-video flex items-center justify-center relative backdrop-blur-sm">
-                <div className="text-text-tertiary text-body">📹 Live Drone Camera Feed</div>
-                <div className="absolute top-6 left-6 glass rounded-lg px-4 py-2 text-text-primary text-bodySmall font-mono">
+              <div className="aspect-video flex items-center justify-center relative backdrop-blur-sm" style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
+                <div className="text-[var(--font-body)]" style={{ color: 'var(--text-muted)' }}>📹 Live Drone Camera Feed</div>
+                <div className="absolute top-6 left-6 rounded-[var(--radius-button)] px-4 py-2 text-[var(--font-meta)] tabular-nums" style={{ backgroundColor: 'var(--bg-surface1)', color: 'var(--text-primary)', padding: 'var(--spacing-sm) var(--spacing-lg)' }}>
                   Drone {drone.id}
                 </div>
-                <div className="absolute bottom-6 right-6 glass rounded-lg px-4 py-2 text-text-primary text-bodySmall">
+                <div className="absolute bottom-6 right-6 rounded-[var(--radius-button)] px-4 py-2 text-[var(--font-meta)]" style={{ backgroundColor: 'var(--bg-surface1)', color: 'var(--text-primary)', padding: 'var(--spacing-sm) var(--spacing-lg)' }}>
                   HD 1080p
                 </div>
               </div>
             </Card>
 
             {/* Real-time Status Updates */}
-            <Card variant="glass">
+            <Card variant="default" padding="md">
               <CardHeader>
-                <CardTitle className="text-sectionHeader font-semibold text-text-primary">
+                <CardTitle className="text-[var(--font-h2)] font-[var(--weight-medium)]" style={{ color: 'var(--text-primary)' }}>
                   Status Updates
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-body text-text-secondary space-y-4">
+                <div className="text-[var(--font-body)] space-y-4" style={{ color: 'var(--text-secondary)', gap: 'var(--spacing-lg)' }}>
                   {statusMessages.map((msg, index) => (
-                    <div key={index} className="flex items-start gap-3 animate-fade-in">
+                    <div key={index} className="flex items-start gap-3 animate-fade-in" style={{ gap: 'var(--spacing-md)' }}>
                       <span
-                        className={cn(
-                          'w-2 h-2 rounded-full mt-2 flex-shrink-0',
-                          index === 0 ? 'bg-warning' : 'bg-accent-primary'
-                        )}
+                        className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
+                        style={{ backgroundColor: index === 0 ? 'var(--color-warning)' : 'var(--accent-primary)' }}
                       ></span>
-                      <span className="text-body leading-relaxed">{msg}</span>
+                      <span className="text-[var(--font-body)]" style={{ lineHeight: '1.45' }}>{msg}</span>
                     </div>
                   ))}
                 </div>
@@ -113,88 +119,89 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
           </div>
 
           {/* Secondary: Map & Status (30%) */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="lg:col-span-3 space-y-6" style={{ gap: 'var(--spacing-2xl)' }}>
             {/* Building Map */}
-            <Card variant="glass">
+            <Card variant="default" padding="md">
               <CardHeader>
-                <CardTitle className="text-sectionHeader font-semibold text-text-primary">
+                <CardTitle className="text-[var(--font-h2)] font-[var(--weight-medium)]" style={{ color: 'var(--text-primary)' }}>
                   Building Map
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="glass rounded-xl aspect-square relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center text-text-tertiary text-bodySmall">
+                <div className="rounded-[var(--radius-card)] aspect-square relative overflow-hidden" style={{ backgroundColor: 'var(--bg-surface2)' }}>
+                  <div className="absolute inset-0 flex items-center justify-center text-[var(--font-meta)]" style={{ color: 'var(--text-muted)' }}>
                     Building Layout
                   </div>
-                  <div className="absolute top-1/4 left-1/3 w-3 h-3 bg-alert rounded-full animate-pulse"></div>
-                  <div className="absolute top-1/4 left-1/3 -ml-3 -mt-3 w-8 h-8 border-2 border-alert/50 rounded-full"></div>
+                  <div className="absolute top-1/4 left-1/3 w-3 h-3 rounded-full animate-pulse" style={{ backgroundColor: 'var(--color-alert)' }}></div>
+                  <div className="absolute top-1/4 left-1/3 -ml-3 -mt-3 w-8 h-8 border-2 rounded-full" style={{ borderColor: 'var(--color-alert)' }}></div>
                   <div className="absolute top-1/4 left-1/3 translate-x-6 translate-y-6">
-                    <div className="glass rounded-lg text-accent-primary text-bodySmall px-3 py-1.5 border-accent-border">
+                    <div className="rounded-[var(--radius-button)] text-[var(--font-meta)] px-3 py-1.5 border" style={{ backgroundColor: 'var(--bg-surface1)', borderColor: 'var(--accent-primary)', color: 'var(--accent-primary)', padding: 'var(--spacing-xs) var(--spacing-md)' }}>
                       Drone {drone.id}
                     </div>
                   </div>
-                  <div className="absolute bottom-1/4 right-1/4 glass rounded-lg p-3 border-warning/30">
-                    <div className="text-bodySmall text-warning font-semibold">Gallery 3</div>
+                  <div className="absolute bottom-1/4 right-1/4 rounded-[var(--radius-button)] p-3 border" style={{ backgroundColor: 'var(--bg-surface1)', borderColor: 'var(--color-warning)' }}>
+                    <div className="text-[var(--font-meta)] font-[var(--weight-semibold)]" style={{ color: 'var(--color-warning)' }}>Gallery 3</div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Status Indicators */}
-            <Card variant="glass">
+            <Card variant="default" padding="md">
               <CardHeader>
-                <CardTitle className="text-sectionHeader font-semibold text-text-primary">
+                <CardTitle className="text-[var(--font-h2)] font-[var(--weight-medium)]" style={{ color: 'var(--text-primary)' }}>
                   Status
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-6">
+                <div className="space-y-6" style={{ gap: 'var(--spacing-2xl)' }}>
                   <div>
-                    <div className="flex justify-between items-center mb-3">
-                      <span className="text-label font-medium text-text-tertiary">
+                    <div className="flex justify-between items-center mb-3" style={{ marginBottom: 'var(--spacing-md)' }}>
+                      <span className="text-[var(--font-label)] font-[var(--weight-medium)]" style={{ color: 'var(--text-muted)' }}>
                         Battery
                       </span>
-                      <span className="text-value font-semibold text-text-primary">
+                      <span className="text-[var(--font-h2)] font-[var(--weight-semibold)] tabular-nums" style={{ color: 'var(--text-primary)' }}>
                         {drone.battery.toFixed(0)}%
                       </span>
                     </div>
-                    <div className="w-full bg-bg-base rounded-full h-2 overflow-hidden">
+                    <div className="w-full rounded-full h-2 overflow-hidden" style={{ backgroundColor: 'var(--bg-base)' }}>
                       <div
-                        className={cn(
-                          'h-full rounded-full transition-all duration-500',
-                          drone.battery < 30 ? 'bg-alert animate-glow-pulse' : 'bg-success'
-                        )}
-                        style={{ width: `${drone.battery}%` }}
+                        className="h-full rounded-full transition-all"
+                        style={{ 
+                          width: `${drone.battery}%`,
+                          backgroundColor: drone.battery < 30 ? 'var(--color-alert)' : 'var(--color-success)',
+                          transition: 'var(--motion-slow)',
+                        }}
                       />
                     </div>
                   </div>
 
-                  <div className="pt-4 border-t border-border-default">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-label font-medium text-text-tertiary">
+                  <div className="pt-4 border-t" style={{ paddingTop: 'var(--spacing-lg)', borderColor: 'var(--border-subtle)' }}>
+                    <div className="flex justify-between items-center mb-2" style={{ marginBottom: 'var(--spacing-sm)' }}>
+                      <span className="text-[var(--font-label)] font-[var(--weight-medium)]" style={{ color: 'var(--text-muted)' }}>
                         Distance to Threat
                       </span>
-                      <span className="text-value font-semibold text-text-primary">
+                      <span className="text-[var(--font-h2)] font-[var(--weight-semibold)] tabular-nums" style={{ color: 'var(--text-primary)' }}>
                         {drone.distance.toFixed(1)}m
                       </span>
                     </div>
                   </div>
 
-                  <div className="pt-4 border-t border-border-default">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-label font-medium text-text-tertiary">
+                  <div className="pt-4 border-t" style={{ paddingTop: 'var(--spacing-lg)', borderColor: 'var(--border-subtle)' }}>
+                    <div className="flex justify-between items-center mb-2" style={{ marginBottom: 'var(--spacing-sm)' }}>
+                      <span className="text-[var(--font-label)] font-[var(--weight-medium)]" style={{ color: 'var(--text-muted)' }}>
                         Altitude
                       </span>
-                      <span className="text-value font-semibold text-text-primary">{drone.altitude}m</span>
+                      <span className="text-[var(--font-h2)] font-[var(--weight-semibold)] tabular-nums" style={{ color: 'var(--text-primary)' }}>{drone.altitude}m</span>
                     </div>
                   </div>
 
-                  <div className="pt-4 border-t border-border-default">
+                  <div className="pt-4 border-t" style={{ paddingTop: 'var(--spacing-lg)', borderColor: 'var(--border-subtle)' }}>
                     <div className="flex justify-between items-center">
-                      <span className="text-label font-medium text-text-tertiary">
+                      <span className="text-[var(--font-label)] font-[var(--weight-medium)]" style={{ color: 'var(--text-muted)' }}>
                         Status
                       </span>
-                      <span className="text-bodySmall font-medium text-text-secondary">📹 {drone.status}</span>
+                      <span className="text-[var(--font-meta)] font-[var(--weight-medium)]" style={{ color: 'var(--text-secondary)' }}>📹 {drone.status}</span>
                     </div>
                   </div>
                 </div>
@@ -202,7 +209,7 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
             </Card>
 
             {/* Action Buttons */}
-            <div className="space-y-3">
+            <div className="space-y-3" style={{ gap: 'var(--spacing-md)' }}>
               <Button
                 variant="primary"
                 className="w-full"
@@ -211,13 +218,13 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
               >
                 {manualControlActive ? 'Manual Control Active' : 'Engage Manual Control'}
               </Button>
-              <Button variant="ghost" className="w-full" onClick={onThreatAssessment}>
+              <Button variant="tertiary" className="w-full" onClick={onThreatAssessment}>
                 Proceed to Threat Assessment
               </Button>
-              <Button variant="ghost" className="w-full">
+              <Button variant="tertiary" className="w-full">
                 Thermal View
               </Button>
-              <Button variant="ghost" className="w-full">
+              <Button variant="tertiary" className="w-full">
                 Return to Base
               </Button>
             </div>

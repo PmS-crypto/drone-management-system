@@ -12,5 +12,7 @@ export { ScrollArea } from './ScrollArea';
 export { Header } from './Header';
 export { KPITile } from './KPITile';
 export { ActivityRow } from './ActivityRow';
+export { ActionRow } from './ActionRow';
 export { ActionList } from './ActionList';
 export { Sidebar } from './Sidebar';
+export { ThemeSwitcher } from './ThemeSwitcher';

@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import { tokens } from "./src/design-system/tokens";
+import { typography, spacing, radii } from "./src/design-system/tokens";
 
 const config: Config = {
   content: [
@@ -11,93 +11,91 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Background surfaces
+        // Background surfaces (CSS variables for theme switching)
         bg: {
-          base: tokens.colors.bg.base,
-          background: tokens.colors.bg.background,
-          surface: tokens.colors.bg.surface,
-          raised: tokens.colors.bg.raised,
-          sunken: tokens.colors.bg.sunken,
-        },
-        // Border
-        border: {
-          DEFAULT: tokens.colors.border.default,
-          hover: tokens.colors.border.hover,
-          active: tokens.colors.border.active,
-          accent: tokens.colors.border.accent,
+          base: 'var(--bg-base)',
+          surface1: 'var(--bg-surface1)',
+          surface2: 'var(--bg-surface2)',
+          surface3: 'var(--bg-surface3)',
+          overlay: 'var(--bg-overlay)',
+          scrim: 'var(--bg-scrim)',
+          alert: 'var(--bg-alert)',
+          success: 'var(--bg-success)',
+          warning: 'var(--bg-warning)',
+          info: 'var(--bg-info)',
         },
         // Text colors
         text: {
-          primary: tokens.colors.text.primary,
-          secondary: tokens.colors.text.secondary,
-          tertiary: tokens.colors.text.tertiary,
-          disabled: tokens.colors.text.disabled,
+          primary: 'var(--text-primary)',
+          secondary: 'var(--text-secondary)',
+          muted: 'var(--text-muted)',
+          inverse: 'var(--text-inverse)',
         },
-        // Accent (Linear indigo-purple)
+        // Border
+        border: {
+          subtle: 'var(--border-subtle)',
+          muted: 'var(--border-muted)',
+          strong: 'var(--border-strong)',
+          accent: 'var(--border-accent)',
+        },
+        // Accent
         accent: {
-          primary: tokens.colors.accent.primary,
-          hover: tokens.colors.accent.hover,
-          soft: tokens.colors.accent.soft,
-          border: tokens.colors.accent.border,
+          primary: 'var(--accent-primary)',
+          hover: 'var(--accent-hover)',
+          active: 'var(--accent-active)',
+          light: 'var(--accent-light)',
         },
         // Semantic colors
-        alert: tokens.colors.semantic.alert,
-        success: tokens.colors.semantic.success,
-        warning: tokens.colors.semantic.warning,
-        info: tokens.colors.semantic.info,
-        // Legacy mappings
-        surface: {
-          base: tokens.colors.bg.base,
-          surface: tokens.colors.bg.surface,
-        },
-        danger: {
-          DEFAULT: tokens.colors.semantic.alert,
+        color: {
+          alert: 'var(--color-alert)',
+          success: 'var(--color-success)',
+          warning: 'var(--color-warning)',
+          info: 'var(--color-info)',
         },
       },
       fontFamily: {
-        sans: [...tokens.typography.fontFamily.sans],
-        mono: [...tokens.typography.fontFamily.mono],
+        sans: ['var(--font-family)'],
+        mono: ['var(--font-family)'],
+        tabular: ['var(--font-family)'],
       },
       fontSize: {
-        display: [...tokens.typography.fontSize.display] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
-        h1: [...tokens.typography.fontSize.h1] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
-        h2: [...tokens.typography.fontSize.h2] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
-        pageTitle: [...tokens.typography.fontSize.pageTitle] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
-        sectionHeader: [...tokens.typography.fontSize.sectionHeader] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
-        cardTitle: [...tokens.typography.fontSize.cardTitle] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
-        body: [...tokens.typography.fontSize.body] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
-        bodySmall: [...tokens.typography.fontSize.bodySmall] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
-        label: [...tokens.typography.fontSize.label] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
-        meta: [...tokens.typography.fontSize.meta] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
-        value: [...tokens.typography.fontSize.value] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
+        display: [typography.display.size, { lineHeight: typography.display.lineHeight.toString(), fontWeight: typography.display.weight.toString(), letterSpacing: typography.display.letterSpacing }],
+        h1: [typography.h1.size, { lineHeight: typography.h1.lineHeight.toString(), fontWeight: typography.h1.weight.toString(), letterSpacing: typography.h1.letterSpacing }],
+        h2: [typography.h2.size, { lineHeight: typography.h2.lineHeight.toString(), fontWeight: typography.h2.weight.toString() }],
+        body: [typography.body.size, { lineHeight: typography.body.lineHeight.toString(), fontWeight: typography.body.weight.toString() }],
+        label: [typography.label.size, { lineHeight: typography.label.lineHeight.toString(), fontWeight: typography.label.weight.toString() }],
+        meta: [typography.meta.size, { lineHeight: typography.meta.lineHeight.toString(), fontWeight: typography.meta.weight.toString() }],
       },
       spacing: {
-        ...tokens.spacing,
-        gutter: tokens.spacing.gutter,
-        section: tokens.spacing.section,
-        cardPadding: tokens.spacing.cardPadding,
-        rowGap: tokens.spacing.rowGap,
+        ...spacing,
+        'page-padding': 'var(--page-padding)',
+        'section-gap': 'var(--section-gap)',
+        'card-padding': 'var(--card-padding)',
+        'element-gap': 'var(--element-gap)',
+        'row-height': 'var(--row-height)',
       },
       borderRadius: {
-        ...tokens.radius,
-        DEFAULT: tokens.radius.md,
+        card: radii.card,
+        button: radii.button,
+        input: radii.input,
+        full: radii.full,
+        DEFAULT: radii.card,
       },
       boxShadow: {
-        ...tokens.shadow,
-        DEFAULT: tokens.shadow.md,
-      },
-      backdropBlur: {
-        glass: '20px',
+        xs: 'var(--shadow-xs)',
+        sm: 'var(--shadow-sm)',
+        md: 'var(--shadow-md)',
+        lg: 'var(--shadow-lg)',
+        inner: 'var(--shadow-inner)',
       },
       transitionTimingFunction: {
-        DEFAULT: tokens.transition.easeOut,
-        easeOut: tokens.transition.easeOut,
-        easeInOut: tokens.transition.easeInOut,
+        DEFAULT: 'cubic-bezier(0.4, 0, 0.2, 1)',
       },
       transitionDuration: {
-        DEFAULT: '200ms',
-        fast: '180ms',
-        slow: '220ms',
+        DEFAULT: '150ms',
+        fast: '150ms',
+        normal: '200ms',
+        slow: '300ms',
       },
     },
   },

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Header, Card, CardHeader, CardTitle, CardContent, Button, KPITile } from '@/src/components/ui';
+import { Header, Card, Button, KPITile } from '@/src/components/ui';
 import { cn } from '@/src/lib/utils';
 
 interface ThreatAssessmentProps {
@@ -46,45 +46,48 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
     switch (category) {
       case 'human':
         return {
-          selected: 'border-alert/40 bg-alert/10',
-          text: 'text-alert',
-          progress: 'bg-alert',
+          selectedBorder: 'var(--color-alert)',
+          selectedBg: 'var(--bg-alert)',
+          text: 'var(--color-alert)',
+          progress: 'var(--color-alert)',
         };
       case 'equipment':
         return {
-          selected: 'border-warning/40 bg-warning/10',
-          text: 'text-warning',
-          progress: 'bg-warning',
+          selectedBorder: 'var(--color-warning)',
+          selectedBg: 'var(--bg-warning)',
+          text: 'var(--color-warning)',
+          progress: 'var(--color-warning)',
         };
       case 'environmental':
         return {
-          selected: 'border-success/40 bg-success/10',
-          text: 'text-success',
-          progress: 'bg-success',
+          selectedBorder: 'var(--color-success)',
+          selectedBg: 'var(--bg-success)',
+          text: 'var(--color-success)',
+          progress: 'var(--color-success)',
         };
       default:
         return {
-          selected: '',
-          text: 'text-text-primary',
-          progress: 'bg-bg-base',
+          selectedBorder: 'var(--border-subtle)',
+          selectedBg: 'transparent',
+          text: 'var(--text-primary)',
+          progress: 'var(--bg-base)',
         };
     }
   };
 
   return (
-    <div className="min-h-screen bg-bg-base animate-fade-in">
-      <div className="max-w-4xl mx-auto px-gutter py-10">
+    <div className="min-h-screen animate-fade-in" style={{ backgroundColor: 'var(--bg-base)' }}>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-6" style={{ paddingTop: 'var(--section-gap)' }}>
         <Header
+          className="mt-0"
           title="Threat Assessment"
           description="Categorize and broadcast threat assessment"
         />
 
         {/* Sensor Data Aggregation */}
-        <div className="mb-section">
-          <div className="mb-4">
-            <h2 className="text-sectionHeader font-semibold text-text-primary">Sensor Data</h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <section className="mb-6" aria-label="Sensor data" style={{ marginBottom: 'var(--section-gap)' }}>
+          <h2 className="text-[var(--font-h2)] font-[var(--weight-medium)] mb-3" style={{ textTransform: 'capitalize', color: 'var(--text-primary)', marginBottom: 'var(--spacing-md)' }}>Sensor Data</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3" style={{ gap: 'var(--spacing-md)' }}>
             {[
               { label: 'Motion', value: `${sensors.motion}%` },
               { label: 'Heat', value: `${sensors.heat}%` },
@@ -94,50 +97,64 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
               <KPITile key={idx} label={sensor.label} value={sensor.value} />
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Guided Decision Tree */}
-        <div className="mb-section">
-          <div className="mb-4">
-            <h2 className="text-sectionHeader font-semibold text-text-primary">
-              Guided Decision Tree
-            </h2>
-          </div>
-          <p className="text-body text-text-secondary mb-6 leading-relaxed">
+        <section className="mb-6" aria-label="Guided decision tree" style={{ marginBottom: 'var(--section-gap)' }}>
+          <h2 className="text-[var(--font-h2)] font-[var(--weight-medium)] mb-3" style={{ textTransform: 'capitalize', color: 'var(--text-primary)', marginBottom: 'var(--spacing-md)' }}>Guided Decision Tree</h2>
+          <p className="text-[var(--font-body)] mb-6" style={{ color: 'var(--text-secondary)', marginBottom: 'var(--spacing-2xl)' }}>
             Based on sensor pattern, this is likely:
           </p>
 
-          <div className="space-y-4">
+          <div className="space-y-4" style={{ gap: 'var(--spacing-lg)' }}>
             {/* Option A: Human Intruder */}
             <button
               onClick={() => handleCategorySelect('human')}
-              className={cn(
-                'w-full text-left p-6 rounded-xl border-2 transition-all duration-200 hover-scale',
-                selectedCategory === 'human'
-                  ? getCategoryColor('human').selected + ' shadow-lg'
-                  : 'border-border-default bg-bg-surface hover:border-border-hover hover:bg-bg-raised shadow-md hover:shadow-lg'
-              )}
+              className="w-full text-left rounded-[var(--radius-card)] border-2 transition-all"
+              style={{
+                padding: 'var(--card-padding)',
+                borderColor: selectedCategory === 'human' ? getCategoryColor('human').selectedBorder : 'var(--border-subtle)',
+                backgroundColor: selectedCategory === 'human' ? getCategoryColor('human').selectedBg : 'var(--bg-surface1)',
+                boxShadow: selectedCategory === 'human' ? 'var(--shadow-md)' : 'var(--shadow-sm)',
+                transition: 'var(--motion-normal)',
+              }}
+              onMouseEnter={(e) => {
+                if (selectedCategory !== 'human') {
+                  e.currentTarget.style.borderColor = 'var(--border-muted)';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-surface2)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (selectedCategory !== 'human') {
+                  e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-surface1)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
+                }
+              }}
             >
-              <div className="flex justify-between items-start mb-4">
+              <div className="flex justify-between items-start mb-4" style={{ marginBottom: 'var(--spacing-lg)' }}>
                 <div>
-                  <div className="text-label font-medium text-text-tertiary mb-2">
+                  <div className="text-[var(--font-label)] font-[var(--weight-medium)] mb-2" style={{ color: 'var(--text-muted)', marginBottom: 'var(--spacing-sm)' }}>
                     Option A
                   </div>
-                  <span className="text-cardTitle font-semibold text-text-primary">Human Intruder</span>
+                  <span className="text-[var(--font-h2)] font-[var(--weight-semibold)]" style={{ color: 'var(--text-primary)' }}>Human Intruder</span>
                 </div>
                 <span
-                  className={cn(
-                    'text-value font-semibold',
-                    selectedCategory === 'human' ? getCategoryColor('human').text : 'text-text-primary'
-                  )}
+                  className="text-[var(--font-h2)] font-[var(--weight-semibold)] tabular-nums"
+                  style={{ color: selectedCategory === 'human' ? getCategoryColor('human').text : 'var(--text-primary)' }}
                 >
                   {threatAssessment.humanIntruder}%
                 </span>
               </div>
-              <div className="w-full bg-bg-base rounded-full h-2.5 overflow-hidden">
+              <div className="w-full rounded-full h-2.5 overflow-hidden" style={{ backgroundColor: 'var(--bg-base)' }}>
                 <div
-                  className={cn('h-full rounded-full transition-all duration-500', getCategoryColor('human').progress)}
-                  style={{ width: `${threatAssessment.humanIntruder}%` }}
+                  className="h-full rounded-full transition-all"
+                  style={{ 
+                    width: `${threatAssessment.humanIntruder}%`,
+                    backgroundColor: getCategoryColor('human').progress,
+                    transition: 'var(--motion-slow)',
+                  }}
                 />
               </div>
             </button>
@@ -145,38 +162,51 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
             {/* Option B: Equipment Malfunction */}
             <button
               onClick={() => handleCategorySelect('equipment')}
-              className={cn(
-                'w-full text-left p-6 rounded-xl border-2 transition-all duration-200 hover-scale',
-                selectedCategory === 'equipment'
-                  ? getCategoryColor('equipment').selected + ' shadow-lg'
-                  : 'border-border-default bg-bg-surface hover:border-border-hover hover:bg-bg-raised shadow-md hover:shadow-lg'
-              )}
+              className="w-full text-left rounded-[var(--radius-card)] border-2 transition-all"
+              style={{
+                padding: 'var(--card-padding)',
+                borderColor: selectedCategory === 'equipment' ? getCategoryColor('equipment').selectedBorder : 'var(--border-subtle)',
+                backgroundColor: selectedCategory === 'equipment' ? getCategoryColor('equipment').selectedBg : 'var(--bg-surface1)',
+                boxShadow: selectedCategory === 'equipment' ? 'var(--shadow-md)' : 'var(--shadow-sm)',
+                transition: 'var(--motion-normal)',
+              }}
+              onMouseEnter={(e) => {
+                if (selectedCategory !== 'equipment') {
+                  e.currentTarget.style.borderColor = 'var(--border-muted)';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-surface2)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (selectedCategory !== 'equipment') {
+                  e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-surface1)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
+                }
+              }}
             >
-              <div className="flex justify-between items-start mb-4">
+              <div className="flex justify-between items-start mb-4" style={{ marginBottom: 'var(--spacing-lg)' }}>
                 <div>
-                  <div className="text-label font-medium text-text-tertiary mb-2">
+                  <div className="text-[var(--font-label)] font-[var(--weight-medium)] mb-2" style={{ color: 'var(--text-muted)', marginBottom: 'var(--spacing-sm)' }}>
                     Option B
                   </div>
-                  <span className="text-cardTitle font-semibold text-text-primary">Equipment Malfunction</span>
+                  <span className="text-[var(--font-h2)] font-[var(--weight-semibold)]" style={{ color: 'var(--text-primary)' }}>Equipment Malfunction</span>
                 </div>
                 <span
-                  className={cn(
-                    'text-value font-semibold',
-                    selectedCategory === 'equipment'
-                      ? getCategoryColor('equipment').text
-                      : 'text-text-primary'
-                  )}
+                  className="text-[var(--font-h2)] font-[var(--weight-semibold)] tabular-nums"
+                  style={{ color: selectedCategory === 'equipment' ? getCategoryColor('equipment').text : 'var(--text-primary)' }}
                 >
                   {threatAssessment.equipmentMalfunction}%
                 </span>
               </div>
-              <div className="w-full bg-bg-base rounded-full h-2.5 overflow-hidden">
+              <div className="w-full rounded-full h-2.5 overflow-hidden" style={{ backgroundColor: 'var(--bg-base)' }}>
                 <div
-                  className={cn(
-                    'h-full rounded-full transition-all duration-500',
-                    getCategoryColor('equipment').progress
-                  )}
-                  style={{ width: `${threatAssessment.equipmentMalfunction}%` }}
+                  className="h-full rounded-full transition-all"
+                  style={{ 
+                    width: `${threatAssessment.equipmentMalfunction}%`,
+                    backgroundColor: getCategoryColor('equipment').progress,
+                    transition: 'var(--motion-slow)',
+                  }}
                 />
               </div>
             </button>
@@ -184,85 +214,101 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
             {/* Option C: Environmental */}
             <button
               onClick={() => handleCategorySelect('environmental')}
-              className={cn(
-                'w-full text-left p-6 rounded-xl border-2 transition-all duration-200 hover-scale',
-                selectedCategory === 'environmental'
-                  ? getCategoryColor('environmental').selected + ' shadow-lg'
-                  : 'border-border-default bg-bg-surface hover:border-border-hover hover:bg-bg-raised shadow-md hover:shadow-lg'
-              )}
+              className="w-full text-left rounded-[var(--radius-card)] border-2 transition-all"
+              style={{
+                padding: 'var(--card-padding)',
+                borderColor: selectedCategory === 'environmental' ? getCategoryColor('environmental').selectedBorder : 'var(--border-subtle)',
+                backgroundColor: selectedCategory === 'environmental' ? getCategoryColor('environmental').selectedBg : 'var(--bg-surface1)',
+                boxShadow: selectedCategory === 'environmental' ? 'var(--shadow-md)' : 'var(--shadow-sm)',
+                transition: 'var(--motion-normal)',
+              }}
+              onMouseEnter={(e) => {
+                if (selectedCategory !== 'environmental') {
+                  e.currentTarget.style.borderColor = 'var(--border-muted)';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-surface2)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (selectedCategory !== 'environmental') {
+                  e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-surface1)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
+                }
+              }}
             >
-              <div className="flex justify-between items-start mb-4">
+              <div className="flex justify-between items-start mb-4" style={{ marginBottom: 'var(--spacing-lg)' }}>
                 <div>
-                  <div className="text-label font-medium text-text-tertiary mb-2">
+                  <div className="text-[var(--font-label)] font-[var(--weight-medium)] mb-2" style={{ color: 'var(--text-muted)', marginBottom: 'var(--spacing-sm)' }}>
                     Option C
                   </div>
-                  <span className="text-cardTitle font-semibold text-text-primary">Environmental</span>
+                  <span className="text-[var(--font-h2)] font-[var(--weight-semibold)]" style={{ color: 'var(--text-primary)' }}>Environmental</span>
                 </div>
                 <span
-                  className={cn(
-                    'text-value font-semibold',
-                    selectedCategory === 'environmental'
-                      ? getCategoryColor('environmental').text
-                      : 'text-text-primary'
-                  )}
+                  className="text-[var(--font-h2)] font-[var(--weight-semibold)] tabular-nums"
+                  style={{ color: selectedCategory === 'environmental' ? getCategoryColor('environmental').text : 'var(--text-primary)' }}
                 >
                   {threatAssessment.environmental}%
                 </span>
               </div>
-              <div className="w-full bg-bg-base rounded-full h-2.5 overflow-hidden">
+              <div className="w-full rounded-full h-2.5 overflow-hidden" style={{ backgroundColor: 'var(--bg-base)' }}>
                 <div
-                  className={cn(
-                    'h-full rounded-full transition-all duration-500',
-                    getCategoryColor('environmental').progress
-                  )}
-                  style={{ width: `${threatAssessment.environmental}%` }}
+                  className="h-full rounded-full transition-all"
+                  style={{ 
+                    width: `${threatAssessment.environmental}%`,
+                    backgroundColor: getCategoryColor('environmental').progress,
+                    transition: 'var(--motion-slow)',
+                  }}
                 />
               </div>
             </button>
           </div>
-        </div>
+        </section>
 
         {/* Visual Reference */}
-        <div className="mb-section">
-          <div className="mb-4">
-            <h2 className="text-sectionHeader font-semibold text-text-primary">
-              Visual Reference
-            </h2>
-          </div>
-          <div className="glass rounded-xl aspect-video flex items-center justify-center overflow-hidden shadow-lg">
-            <div className="text-body text-text-tertiary">Drone Camera Feed Thumbnail</div>
-          </div>
-        </div>
+        <section className="mb-6" aria-label="Visual reference" style={{ marginBottom: 'var(--section-gap)' }}>
+          <h2 className="text-[var(--font-h2)] font-[var(--weight-medium)] mb-3" style={{ textTransform: 'capitalize', color: 'var(--text-primary)', marginBottom: 'var(--spacing-md)' }}>Visual Reference</h2>
+          <Card padding="lg">
+            <div className="aspect-video flex items-center justify-center overflow-hidden rounded-[var(--radius-button)]" style={{ backgroundColor: 'var(--bg-surface2)' }}>
+              <div className="text-[var(--font-body)]" style={{ color: 'var(--text-muted)' }}>Drone Camera Feed Thumbnail</div>
+            </div>
+          </Card>
+        </section>
 
         {/* Broadcast Recipients */}
-        <div className="mb-section">
-          <div className="mb-4">
-            <h2 className="text-sectionHeader font-semibold text-text-primary">
-              Broadcast Recipients
-            </h2>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="flex -space-x-2">
-              {['M', 'I', 'S'].map((initial, idx) => (
-                <div
-                  key={idx}
-                  className="w-12 h-12 rounded-full glass border-2 border-bg-base flex items-center justify-center text-body font-semibold text-text-primary"
-                >
-                  {initial}
-                </div>
-              ))}
+        <section className="mb-6" aria-label="Broadcast recipients" style={{ marginBottom: 'var(--section-gap)' }}>
+          <h2 className="text-[var(--font-h2)] font-[var(--weight-medium)] mb-3" style={{ textTransform: 'capitalize', color: 'var(--text-primary)', marginBottom: 'var(--spacing-md)' }}>Broadcast Recipients</h2>
+          <Card padding="md">
+            <div className="flex items-center gap-4" style={{ gap: 'var(--spacing-lg)' }}>
+              <div className="flex -space-x-2">
+                {['M', 'I', 'S'].map((initial, idx) => (
+                  <div
+                    key={idx}
+                    className="w-12 h-12 rounded-full border-2 flex items-center justify-center text-[var(--font-body)] font-[var(--weight-semibold)]"
+                    style={{
+                      backgroundColor: 'var(--bg-surface2)',
+                      borderColor: 'var(--bg-base)',
+                      color: 'var(--text-primary)',
+                    }}
+                  >
+                    {initial}
+                  </div>
+                ))}
+              </div>
+              <div className="text-[var(--font-body)]" style={{ color: 'var(--text-secondary)' }}>Marc, Isabelle, Sophie</div>
             </div>
-            <div className="text-body text-text-secondary">Marc, Isabelle, Sophie</div>
-          </div>
-        </div>
+          </Card>
+        </section>
 
         {/* Action Button */}
         <Button
-          variant={broadcastSent ? 'secondary' : selectedCategory ? 'primary' : 'ghost'}
-          className={cn(
-            'w-full',
-            broadcastSent && 'bg-success/10 text-success border-success/30'
-          )}
+          variant={broadcastSent ? 'secondary' : selectedCategory ? 'primary' : 'quiet'}
+          className="w-full"
+          style={broadcastSent ? {
+            backgroundColor: 'var(--bg-success)',
+            color: 'var(--color-success)',
+            borderColor: 'var(--color-success)',
+          } : {}}
           onClick={handleBroadcast}
           disabled={!selectedCategory || broadcastSent}
         >
