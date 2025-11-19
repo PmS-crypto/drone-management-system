@@ -195,7 +195,7 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
               </div>
               <button
                 onClick={() => onNavigate('alert')}
-                className="mt-4 w-full bg-red-500 text-white font-medium py-3 px-6 rounded-lg hover:bg-red-600 transition-all duration-200 shadow-lg shadow-red-500/20"
+                className="mt-4 w-full bg-alert text-white font-semibold py-3 px-6 rounded-md hover:bg-alert-hover active:bg-alert-active transition-all duration-150 shadow-button-hover hover:shadow-button-active focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2"
               >
                 View Full Alert Details
               </button>
@@ -228,7 +228,7 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
               </div>
               <button
                 onClick={() => onNavigate('drone')}
-                className="mt-4 w-full bg-blue-500 text-white font-medium py-3 px-6 rounded-lg hover:bg-blue-600 transition-all duration-200 shadow-lg shadow-blue-500/20"
+                className="mt-4 w-full bg-info text-white font-semibold py-3 px-6 rounded-md hover:bg-info-hover active:bg-info/80 transition-all duration-150 shadow-md hover:shadow-lg focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2"
               >
                 View Live Feed
               </button>

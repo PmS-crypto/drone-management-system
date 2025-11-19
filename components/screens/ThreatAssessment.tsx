@@ -190,9 +190,9 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
         <button
           onClick={handleBroadcast}
           disabled={!selectedCategory}
-          className={`w-full font-medium py-3.5 px-6 rounded-lg transition-all duration-200 min-h-[48px] ${
+          className={`w-full font-semibold py-3 px-6 rounded-md transition-all duration-150 min-h-[48px] ${
             selectedCategory
-              ? 'bg-red-500 text-white hover:bg-red-600 shadow-lg shadow-red-500/20'
+              ? 'bg-alert text-white hover:bg-alert-hover active:bg-alert-active shadow-button-hover hover:shadow-button-active focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2'
               : 'bg-white/5 text-white/30 cursor-not-allowed border border-white/5'
           }`}
         >

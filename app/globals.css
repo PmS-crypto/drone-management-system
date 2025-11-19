@@ -5,7 +5,7 @@
 :root {
   --alert: #DC2626;
   --warning: #F59E0B;
-  --success: #22C55E;
+  --success: #059669;
   --neutral: #0F172A;
   --secondary: #3B82F6;
   --text: #F1F5F9;
@@ -27,14 +27,15 @@ body {
   margin: 0;
 }
 
+/* Enhanced Animations */
 @keyframes slide-in {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateX(400px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
@@ -47,12 +48,40 @@ body {
   }
 }
 
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
 .animate-slide-in {
-  animation: slide-in 0.2s ease-out;
+  animation: slide-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .animate-fade-in {
-  animation: fade-in 0.3s ease-in;
+  animation: fade-in 0.3s ease-out;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.3s ease-out;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* Responsive utilities */

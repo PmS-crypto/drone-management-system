@@ -111,14 +111,14 @@ export default function EvidenceDetail({ data, onBack }: EvidenceDetailProps) {
             <div className="flex gap-3">
               <button
                 onClick={handleAddNote}
-                className="bg-blue-500 text-white font-medium py-3 px-6 rounded-lg hover:bg-blue-600 transition-all duration-200 min-h-[48px] shadow-lg shadow-blue-500/20"
+                className="bg-info text-white font-semibold py-3 px-6 rounded-md hover:bg-info-hover active:bg-info/80 transition-all duration-150 min-h-[48px] shadow-md hover:shadow-lg focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2"
               >
                 Add Note
               </button>
-              <button className="bg-white/5 text-white font-medium py-3 px-6 rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[48px] border border-white/10">
+              <button className="bg-white/5 text-white font-semibold py-3 px-6 rounded-md hover:bg-white/10 active:bg-white/15 transition-all duration-150 min-h-[48px] border border-white/10 hover:border-white/20 focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2">
                 Share with Team
               </button>
-              <button className="bg-white/5 text-white font-medium py-3 px-6 rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[48px] border border-white/10">
+              <button className="bg-white/5 text-white font-semibold py-3 px-6 rounded-md hover:bg-white/10 active:bg-white/15 transition-all duration-150 min-h-[48px] border border-white/10 hover:border-white/20 focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2">
                 Flag for System Improvement
               </button>
             </div>

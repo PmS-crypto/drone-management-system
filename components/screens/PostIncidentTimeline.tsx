@@ -147,7 +147,7 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
                   a.click();
                   URL.revokeObjectURL(url);
                 }}
-                className="w-full bg-blue-500 text-white font-medium py-3.5 px-6 rounded-lg hover:bg-blue-600 transition-all duration-200 min-h-[48px] shadow-lg shadow-blue-500/20"
+                className="w-full bg-info text-white font-semibold py-3 px-6 rounded-md hover:bg-info-hover active:bg-info/80 transition-all duration-150 min-h-[48px] shadow-md hover:shadow-lg focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2"
               >
                 Generate Incident Report
               </button>
@@ -219,7 +219,7 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
                     {/* View Full Details Button */}
                     <button
                       onClick={() => onEventClick(event.id)}
-                      className="w-full bg-blue-500 text-white font-medium py-3 px-6 rounded-lg hover:bg-blue-600 transition-all duration-200 min-h-[48px] shadow-lg shadow-blue-500/20"
+                      className="w-full bg-info text-white font-semibold py-3 px-6 rounded-md hover:bg-info-hover active:bg-info/80 transition-all duration-150 min-h-[48px] shadow-md hover:shadow-lg focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2"
                     >
                       View Full Details & Annotations
                     </button>

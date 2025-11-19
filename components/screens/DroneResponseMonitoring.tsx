@@ -164,24 +164,24 @@ export default function DroneResponseMonitoring({ data, onThreatAssessment }: Dr
               <button
                 onClick={handleManualControl}
                 disabled={manualControlActive}
-                className={`w-full font-medium py-3 px-4 rounded-lg transition-all duration-200 min-h-[48px] shadow-lg ${
+                className={`w-full font-semibold py-3 px-4 rounded-md transition-all duration-150 min-h-[48px] ${
                   manualControlActive
-                    ? 'bg-blue-500/30 text-white/60 cursor-not-allowed shadow-transparent border border-white/10'
-                    : 'bg-blue-500 text-white hover:bg-blue-600 shadow-blue-500/20'
+                    ? 'bg-info/30 text-white/60 cursor-not-allowed border border-white/10'
+                    : 'bg-info text-white hover:bg-info-hover active:bg-info/80 shadow-md hover:shadow-lg focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2'
                 }`}
               >
                 {manualControlActive ? 'Manual Control Active' : 'Engage Manual Control'}
               </button>
               <button
                 onClick={onThreatAssessment}
-                className="w-full bg-white/5 text-white font-medium py-3 px-4 rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[48px] border border-white/10"
+                className="w-full bg-white/5 text-white font-semibold py-3 px-4 rounded-md hover:bg-white/10 active:bg-white/15 transition-all duration-150 min-h-[48px] border border-white/10 hover:border-white/20 focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2"
               >
                 Proceed to Threat Assessment
               </button>
-              <button className="w-full bg-white/5 text-white font-medium py-3 px-4 rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[48px] border border-white/10">
+              <button className="w-full bg-white/5 text-white font-semibold py-3 px-4 rounded-md hover:bg-white/10 active:bg-white/15 transition-all duration-150 min-h-[48px] border border-white/10 hover:border-white/20 focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2">
                 Thermal View
               </button>
-              <button className="w-full bg-white/5 text-white font-medium py-3 px-4 rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[48px] border border-white/10">
+              <button className="w-full bg-white/5 text-white font-semibold py-3 px-4 rounded-md hover:bg-white/10 active:bg-white/15 transition-all duration-150 min-h-[48px] border border-white/10 hover:border-white/20 focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2">
                 Return to Base
               </button>
             </div>

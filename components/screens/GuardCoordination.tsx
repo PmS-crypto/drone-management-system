@@ -78,10 +78,10 @@ export default function GuardCoordination({ data, onComplete }: GuardCoordinatio
             <button
               onClick={handleSend}
               disabled={messageSent}
-              className={`font-medium py-3 px-6 rounded-lg transition-all duration-200 min-h-[48px] ${
+              className={`font-semibold py-3 px-6 rounded-md transition-all duration-150 min-h-[48px] ${
                 messageSent
-                  ? 'bg-green-500/20 text-green-400 border border-green-500/30 cursor-not-allowed'
-                  : 'bg-red-500 text-white hover:bg-red-600 shadow-lg shadow-red-500/20'
+                  ? 'bg-success/20 text-success border border-success/30 cursor-not-allowed'
+                  : 'bg-alert text-white hover:bg-alert-hover active:bg-alert-active shadow-button-hover hover:shadow-button-active focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2'
               }`}
             >
               {messageSent ? '✓ Message Sent' : 'Send to Guards'}
@@ -136,12 +136,12 @@ export default function GuardCoordination({ data, onComplete }: GuardCoordinatio
 
         {/* Complete Button */}
         {messageSent && statusTicker.length > 2 && (
-            <button
-              onClick={onComplete}
-            className="w-full bg-green-500 text-white font-medium py-3.5 px-6 rounded-lg hover:bg-green-600 transition-all duration-200 min-h-[48px] shadow-lg shadow-green-500/20"
-            >
+          <button
+            onClick={onComplete}
+            className="w-full bg-success text-white font-semibold py-3 px-6 rounded-md hover:bg-success/90 active:bg-success/80 transition-all duration-150 min-h-[48px] shadow-md hover:shadow-lg focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2"
+          >
             Incident Resolved — Return to Alert Screen
-            </button>
+          </button>
         )}
       </div>
     </div>
