@@ -429,14 +429,14 @@ export default function Dashboard({ data, mode, onNavigate, onModeChange }: Dash
 
         {/* Alert Status & Drone Status - Side by Side */}
         {mode === 'crisis' && (alert || drone) && (
-          <section className="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-4" aria-label="Status cards" style={{ marginTop: 'var(--section-gap)', marginBottom: 'var(--section-gap)', paddingTop: 'var(--spacing-2xl)', gap: 'var(--spacing-lg)' }}>
+          <section className="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-4" aria-label="Status cards" style={{ marginTop: 'var(--spacing-2xl)', marginBottom: 'var(--section-gap)', paddingTop: 0, gap: 'var(--spacing-lg)' }}>
             {/* Alert Status */}
             {alert && (
               <div>
-                <h2 className="text-[var(--font-h2)] font-[var(--weight-medium)] mb-3" style={{ textTransform: 'capitalize', color: 'var(--text-primary)', marginBottom: 'var(--spacing-md)' }}>Current Alert Status</h2>
-                <Card padding="sm" interactive={false}>
+                <h2 className="text-[var(--font-h2)] font-[var(--weight-medium)] mb-4" style={{ textTransform: 'capitalize', color: 'var(--text-primary)', marginBottom: 'var(--spacing-lg)' }}>Current Alert Status</h2>
+                <Card padding="md" interactive={false} style={{ minHeight: '200px' }}>
                   {/* Header with Action Button */}
-                  <div className="flex items-center justify-between mb-6" style={{ marginBottom: 'var(--spacing-2xl)' }}>
+                  <div className="flex items-center justify-between mb-8" style={{ marginBottom: 'var(--spacing-3xl)' }}>
                     <h3 className="text-[var(--font-h2)] font-[var(--weight-medium)]" style={{ color: 'var(--text-primary)' }}>Alert Details</h3>
                     <Button 
                       variant="outline" 
@@ -448,20 +448,20 @@ export default function Dashboard({ data, mode, onNavigate, onModeChange }: Dash
                       <ChevronRightIcon className="w-3.5 h-3.5" />
                     </Button>
                   </div>
-                  {/* Tight Data Grid */}
-                  <div className="grid grid-cols-3 gap-3" style={{ gap: 'var(--spacing-md)' }}>
-                    <div>
-                      <div className="text-[var(--font-label)] font-[var(--weight-medium)] mb-1 uppercase tracking-wide" style={{ color: 'var(--text-secondary)', marginBottom: 'var(--spacing-xs)', fontSize: '11px' }}>Location</div>
-                      <div className="text-[var(--font-body)] font-[var(--weight-medium)] tabular-nums" style={{ color: 'var(--text-primary)' }}>{alert?.location || 'N/A'}</div>
+                  {/* Data Grid with Improved Spacing */}
+                  <div className="grid grid-cols-3 gap-6" style={{ gap: 'var(--spacing-2xl)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-md)' }}>
+                      <div className="text-[var(--font-label)] font-[var(--weight-medium)] uppercase tracking-wide" style={{ color: 'var(--text-secondary)', fontSize: '11px' }}>Location</div>
+                      <div className="text-[var(--font-body)] font-[var(--weight-medium)] tabular-nums" style={{ color: 'var(--text-primary)', fontSize: '15px' }}>{alert?.location || 'N/A'}</div>
                     </div>
-                    <div>
-                      <div className="text-[var(--font-label)] font-[var(--weight-medium)] mb-1 uppercase tracking-wide" style={{ color: 'var(--text-secondary)', marginBottom: 'var(--spacing-xs)', fontSize: '11px' }}>Confidence</div>
-                      <div className="text-[var(--font-body)] font-[var(--weight-medium)] tabular-nums" style={{ color: 'var(--text-primary)' }}>{alert?.confidence || 0}%</div>
-                      <div className="text-[var(--font-meta)] mt-0.5 tabular-nums" style={{ color: 'var(--text-muted)', marginTop: '2px', fontSize: '10px' }}>threshold 70%</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-md)' }}>
+                      <div className="text-[var(--font-label)] font-[var(--weight-medium)] uppercase tracking-wide" style={{ color: 'var(--text-secondary)', fontSize: '11px' }}>Confidence</div>
+                      <div className="text-[var(--font-body)] font-[var(--weight-medium)] tabular-nums" style={{ color: 'var(--text-primary)', fontSize: '15px' }}>{alert?.confidence || 0}%</div>
+                      <div className="text-[var(--font-meta)] tabular-nums" style={{ color: 'var(--text-muted)', fontSize: '11px', marginTop: '0px' }}>threshold 70%</div>
                     </div>
-                    <div>
-                      <div className="text-[var(--font-label)] font-[var(--weight-medium)] mb-1 uppercase tracking-wide" style={{ color: 'var(--text-secondary)', marginBottom: 'var(--spacing-xs)', fontSize: '11px' }}>Action</div>
-                      <div className="text-[var(--font-body)] font-[var(--weight-medium)]" style={{ color: 'var(--text-primary)' }}>{alert?.recommendedAction || 'N/A'}</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-md)' }}>
+                      <div className="text-[var(--font-label)] font-[var(--weight-medium)] uppercase tracking-wide" style={{ color: 'var(--text-secondary)', fontSize: '11px' }}>Action</div>
+                      <div className="text-[var(--font-body)] font-[var(--weight-medium)]" style={{ color: 'var(--text-primary)', fontSize: '15px' }}>{alert?.recommendedAction || 'N/A'}</div>
                     </div>
                   </div>
                 </Card>
@@ -471,10 +471,10 @@ export default function Dashboard({ data, mode, onNavigate, onModeChange }: Dash
             {/* Drone Status */}
             {drone && (
               <div>
-                <h2 className="text-[var(--font-h2)] font-[var(--weight-medium)] mb-3" style={{ textTransform: 'capitalize', color: 'var(--text-primary)', marginBottom: 'var(--spacing-md)' }}>Active Drone Status</h2>
-                <Card padding="sm" interactive={false}>
+                <h2 className="text-[var(--font-h2)] font-[var(--weight-medium)] mb-4" style={{ textTransform: 'capitalize', color: 'var(--text-primary)', marginBottom: 'var(--spacing-lg)' }}>Active Drone Status</h2>
+                <Card padding="md" interactive={false} style={{ minHeight: '200px' }}>
                   {/* Header with Action Button */}
-                  <div className="flex items-center justify-between mb-6" style={{ marginBottom: 'var(--spacing-2xl)' }}>
+                  <div className="flex items-center justify-between mb-8" style={{ marginBottom: 'var(--spacing-3xl)' }}>
                     <h3 className="text-[var(--font-h2)] font-[var(--weight-medium)]" style={{ color: 'var(--text-primary)' }}>Drone {drone?.id || 'N/A'}</h3>
                     <Button 
                       variant="outline" 
@@ -486,20 +486,20 @@ export default function Dashboard({ data, mode, onNavigate, onModeChange }: Dash
                       <ChevronRightIcon className="w-3.5 h-3.5" />
                     </Button>
                   </div>
-                  {/* Tight Data Grid */}
-                  <div className="grid grid-cols-3 gap-3" style={{ gap: 'var(--spacing-md)' }}>
-                    <div>
-                      <div className="text-[var(--font-label)] font-[var(--weight-medium)] mb-1 uppercase tracking-wide" style={{ color: 'var(--text-secondary)', marginBottom: 'var(--spacing-xs)', fontSize: '11px' }}>Battery</div>
-                      <div className="text-[var(--font-body)] font-[var(--weight-medium)] tabular-nums" style={{ color: 'var(--text-primary)' }}>{drone?.battery?.toFixed(0) || '0'}%</div>
-                      <div className="text-[var(--font-meta)] mt-0.5 tabular-nums" style={{ color: 'var(--text-muted)', marginTop: '2px', fontSize: '10px' }}>min 20%</div>
+                  {/* Data Grid with Improved Spacing */}
+                  <div className="grid grid-cols-3 gap-6" style={{ gap: 'var(--spacing-2xl)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-md)' }}>
+                      <div className="text-[var(--font-label)] font-[var(--weight-medium)] uppercase tracking-wide" style={{ color: 'var(--text-secondary)', fontSize: '11px' }}>Battery</div>
+                      <div className="text-[var(--font-body)] font-[var(--weight-medium)] tabular-nums" style={{ color: 'var(--text-primary)', fontSize: '15px' }}>{drone?.battery?.toFixed(0) || '0'}%</div>
+                      <div className="text-[var(--font-meta)] tabular-nums" style={{ color: 'var(--text-muted)', fontSize: '11px', marginTop: '0px' }}>min 20%</div>
                     </div>
-                    <div>
-                      <div className="text-[var(--font-label)] font-[var(--weight-medium)] mb-1 uppercase tracking-wide" style={{ color: 'var(--text-secondary)', marginBottom: 'var(--spacing-xs)', fontSize: '11px' }}>Distance</div>
-                      <div className="text-[var(--font-body)] font-[var(--weight-medium)] tabular-nums" style={{ color: 'var(--text-primary)' }}>{drone?.distance?.toFixed(1) || '0.0'}m</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-md)' }}>
+                      <div className="text-[var(--font-label)] font-[var(--weight-medium)] uppercase tracking-wide" style={{ color: 'var(--text-secondary)', fontSize: '11px' }}>Distance</div>
+                      <div className="text-[var(--font-body)] font-[var(--weight-medium)] tabular-nums" style={{ color: 'var(--text-primary)', fontSize: '15px' }}>{drone?.distance?.toFixed(1) || '0.0'}m</div>
                     </div>
-                    <div>
-                      <div className="text-[var(--font-label)] font-[var(--weight-medium)] mb-1 uppercase tracking-wide" style={{ color: 'var(--text-secondary)', marginBottom: 'var(--spacing-xs)', fontSize: '11px' }}>Status</div>
-                      <div className="text-[var(--font-body)] font-[var(--weight-medium)]" style={{ color: 'var(--text-primary)' }}>{drone?.status || 'Unknown'}</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-md)' }}>
+                      <div className="text-[var(--font-label)] font-[var(--weight-medium)] uppercase tracking-wide" style={{ color: 'var(--text-secondary)', fontSize: '11px' }}>Status</div>
+                      <div className="text-[var(--font-body)] font-[var(--weight-medium)]" style={{ color: 'var(--text-primary)', fontSize: '15px' }}>{drone?.status || 'Unknown'}</div>
                     </div>
                   </div>
                 </Card>
