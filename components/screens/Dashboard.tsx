@@ -82,8 +82,8 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
         <div className="max-w-7xl mx-auto px-6 py-12">
           {/* Header */}
           <div className="mb-10">
-            <h1 className="text-2xl font-semibold text-white mb-2 tracking-tight">Dashboard</h1>
-            <p className="text-sm text-white/50">
+            <h1 className="text-[24px] font-semibold text-white mb-2 tracking-tight leading-[1.3]">Dashboard</h1>
+            <p className="text-sm text-white/50 leading-relaxed">
               {mode === 'crisis' 
                 ? 'Real-time security monitoring and crisis response' 
                 : 'Post-incident analysis and evidence review'}
@@ -114,8 +114,8 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Quick Actions */}
             <div className="lg:col-span-1">
-              <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6">
-                <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-4">
+              <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
+                <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">
                   Quick Actions
                 </h2>
                 <div className="space-y-2">
@@ -135,8 +135,8 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
 
             {/* Recent Activity */}
             <div className="lg:col-span-2">
-              <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6">
-                <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-4">
+              <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
+                <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">
                   Recent Activity
                 </h2>
                 <div className="space-y-4">
@@ -175,8 +175,8 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
 
           {/* System Status */}
           {mode === 'crisis' && alert && (
-            <div className="mt-6 bg-white/[0.02] border border-white/5 rounded-lg p-6">
-              <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-4">
+            <div className="mt-6 bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
+              <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">
                 Current Alert Status
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -204,8 +204,8 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
 
           {/* Drone Status */}
           {mode === 'crisis' && drone && (
-            <div className="mt-6 bg-white/[0.02] border border-white/5 rounded-lg p-6">
-              <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-4">
+            <div className="mt-6 bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
+              <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">
                 Active Drone Status
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">

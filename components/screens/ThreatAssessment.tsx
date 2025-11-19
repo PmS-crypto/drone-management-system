@@ -39,8 +39,8 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="mb-10">
-          <h1 className="text-2xl font-semibold text-white mb-2 tracking-tight">Threat Assessment</h1>
-          <p className="text-sm text-white/50">Categorize and broadcast threat assessment</p>
+          <h1 className="text-[24px] font-semibold text-white mb-2 tracking-tight leading-[1.3]">Threat Assessment</h1>
+          <p className="text-sm text-white/50 leading-relaxed">Categorize and broadcast threat assessment</p>
         </div>
 
         {/* Sensor Data Aggregation */}
