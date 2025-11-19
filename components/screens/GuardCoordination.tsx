@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Header, Card, CardHeader, CardTitle, CardContent, Button, Textarea, StatusPill, ScrollArea } from '@/src/components/ui';
+import { cn } from '@/src/lib/utils';
 
 interface GuardCoordinationProps {
   data: any;
@@ -24,7 +26,7 @@ export default function GuardCoordination({ data, onComplete }: GuardCoordinatio
     let index = 0;
     const interval = setInterval(() => {
       if (index < tickerMessages.length) {
-        setStatusTicker(prev => [...prev, tickerMessages[index]]);
+        setStatusTicker((prev) => [...prev, tickerMessages[index]]);
         index++;
       }
     }, 2000);
@@ -34,117 +36,134 @@ export default function GuardCoordination({ data, onComplete }: GuardCoordinatio
 
   const handleSend = () => {
     setMessageSent(true);
-    setStatusTicker(prev => ['2:37:15 Message sent to Guards A, B, C', ...prev]);
+    setStatusTicker((prev) => ['2:37:15 Message sent to Guards A, B, C', ...prev]);
   };
 
   return (
-    <div className="min-h-screen bg-neutral">
-      <div className="max-w-4xl mx-auto px-6 py-10">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-[24px] font-semibold text-white mb-2 tracking-tight leading-[1.3]">Guard Coordination</h1>
-          <p className="text-sm text-white/50 leading-relaxed">Coordinate field response with security guards</p>
-        </div>
+    <div className="min-h-screen bg-bg-base animate-fade-in">
+      <div className="max-w-4xl mx-auto px-gutter py-10">
+        <Header
+          title="Guard Coordination"
+          description="Coordinate field response with security guards"
+        />
 
         {/* Alert Summary */}
-        <div className="bg-amber-500/5 border border-amber-500/20 rounded-lg p-5 mb-6">
-          <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Alert Summary</h2>
-          <div className="space-y-2.5 text-sm">
-            <div className="flex items-center gap-2">
-              <span className="text-white/40 font-medium">Location:</span>
-              <span className="text-white/80">{alert.location}</span>
+        <Card variant="glass" className="mb-section border-warning/30 bg-warning/5">
+          <CardHeader>
+            <CardTitle className="text-sectionHeader font-semibold text-text-primary">
+              Alert Summary
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3 text-body">
+              <div className="flex items-center gap-3">
+                <span className="text-text-tertiary font-medium">Location:</span>
+                <span className="text-text-primary font-medium">{alert.location}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-text-tertiary font-medium">Response:</span>
+                <span className="text-text-primary font-medium">Drone 2 deployed</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-text-tertiary font-medium">Guard Action:</span>
+                <span className="text-text-primary font-medium">Clear area</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-white/40 font-medium">Response:</span>
-              <span className="text-white/80">Drone 2 deployed</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-white/40 font-medium">Guard Action:</span>
-              <span className="text-white/80">Clear area</span>
-            </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Message Composition */}
-        <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 mb-6 shadow-md">
-          <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Message to Guards</h2>
-          <textarea
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            className="w-full bg-white/[0.02] border border-white/5 rounded-lg p-4 text-white text-sm min-h-[120px] focus:outline-none focus:border-white/20 transition-all duration-200 placeholder:text-white/30"
-            placeholder="Enter message..."
-          />
-          <div className="mt-4 flex justify-between items-center">
-            <button
-              onClick={handleSend}
-              disabled={messageSent}
-              className={`font-semibold py-3 px-6 rounded-md transition-all duration-150 min-h-[48px] ${
-                messageSent
-                  ? 'bg-success/20 text-success border border-success/30 cursor-not-allowed'
-                  : 'bg-alert text-white hover:bg-alert-hover active:bg-alert-active shadow-button-hover hover:shadow-button-active focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2'
-              }`}
-            >
-              {messageSent ? '✓ Message Sent' : 'Send to Guards'}
-            </button>
-            <span className="text-white/40 text-xs">
-              {guards.positions.length} guard positions
-            </span>
-          </div>
-        </div>
+        <Card variant="glass" className="mb-section">
+          <CardHeader>
+            <CardTitle className="text-sectionHeader font-semibold text-text-primary">
+              Message to Guards
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="mb-6"
+              placeholder="Enter message..."
+            />
+            <div className="flex justify-between items-center">
+              <Button
+                variant={messageSent ? 'secondary' : 'primary'}
+                onClick={handleSend}
+                disabled={messageSent}
+                className={cn(messageSent && 'bg-success/10 text-success border-success/30')}
+              >
+                {messageSent ? '✓ Message Sent' : 'Send to Guards'}
+              </Button>
+              <span className="text-bodySmall text-text-tertiary">{guards.positions.length} guard positions</span>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Guard Positions */}
-        <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 mb-6 shadow-md">
-          <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Guard Positions</h2>
-          <div className="grid grid-cols-3 gap-3">
-            {guards.positions.map((pos: string) => (
-              <div
-                key={pos}
-                className={`bg-white/[0.02] border rounded-lg p-4 text-center transition-all duration-150 shadow-sm ${
-                  messageSent 
-                    ? 'border-green-500/30 bg-green-500/5 shadow-md' 
-                    : 'border-white/5 hover:border-white/10 hover:shadow-md'
-                }`}
-              >
-                <div className="text-base font-semibold text-white mb-1">Guard {pos}</div>
-                <div className="text-xs text-white/50">
-                  {messageSent ? 'Message received' : 'Awaiting message'}
+        <Card variant="glass" className="mb-section">
+          <CardHeader>
+            <CardTitle className="text-sectionHeader font-semibold text-text-primary">
+              Guard Positions
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-3 gap-4">
+              {guards.positions.map((pos: string) => (
+                <div
+                  key={pos}
+                  className={cn(
+                    'glass rounded-xl p-6 text-center transition-all duration-200 hover-scale',
+                    messageSent
+                      ? 'border-success/30 bg-success/5 shadow-lg'
+                      : 'border-border-default hover:border-border-hover hover:shadow-lg'
+                  )}
+                >
+                  <div className="text-value font-semibold text-text-primary mb-2">Guard {pos}</div>
+                  <div className="text-bodySmall text-text-secondary">
+                    {messageSent ? 'Message received' : 'Awaiting message'}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Real-time Status Ticker */}
-        <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 mb-6 shadow-md">
-          <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Status Ticker</h2>
-          <div className="space-y-3 max-h-64 overflow-y-auto">
-            {statusTicker.length === 0 ? (
-              <div className="text-white/30 text-sm">Waiting for updates...</div>
-            ) : (
-              statusTicker.map((status, index) => (
-                <div
-                  key={index}
-                  className="flex items-start gap-3 text-white/70 text-sm animate-fade-in-up"
-                >
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 flex-shrink-0"></span>
-                  <span>{status}</span>
+        <Card variant="glass" className="mb-section">
+          <CardHeader>
+            <CardTitle className="text-sectionHeader font-semibold text-text-primary">
+              Status Ticker
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ScrollArea className="max-h-64">
+              {statusTicker.length === 0 ? (
+                <div className="text-text-tertiary text-body">Waiting for updates...</div>
+              ) : (
+                <div className="space-y-4">
+                  {statusTicker.map((status, index) => (
+                    <div
+                      key={index}
+                      className="flex items-start gap-3 text-text-secondary text-body animate-fade-in-up leading-relaxed"
+                    >
+                      <span className="w-2 h-2 bg-accent-primary rounded-full mt-2 flex-shrink-0"></span>
+                      <span>{status}</span>
+                    </div>
+                  ))}
                 </div>
-              ))
-            )}
-          </div>
-        </div>
+              )}
+            </ScrollArea>
+          </CardContent>
+        </Card>
 
         {/* Complete Button */}
         {messageSent && statusTicker.length > 2 && (
-          <button
-            onClick={onComplete}
-            className="w-full bg-success text-white font-semibold py-3 px-6 rounded-md hover:bg-success/90 active:bg-success/80 transition-all duration-150 min-h-[48px] shadow-md hover:shadow-lg focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2"
-          >
+          <Button variant="primary" className="w-full bg-success hover:bg-success/90" onClick={onComplete}>
             Incident Resolved — Return to Alert Screen
-          </button>
+          </Button>
         )}
       </div>
     </div>
   );
 }
-

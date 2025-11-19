@@ -22,14 +22,19 @@ export default function Home() {
   // Simulate real-time updates
   useEffect(() => {
     const interval = setInterval(() => {
-      setData(prev => ({
+      setData((prev) => ({
         ...prev,
         drone: {
           ...prev.drone,
           battery: Math.max(85, prev.drone.battery - 0.1),
           distance: prev.drone.distance > 0 ? prev.drone.distance - 0.5 : 0,
         },
-        timestamp: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+        timestamp: new Date().toLocaleTimeString('en-US', {
+          hour12: false,
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        }),
       }));
     }, 1000);
 
@@ -47,12 +52,10 @@ export default function Home() {
 
   const renderScreen = () => {
     if (currentScreen === 'dashboard') {
-  return (
-        <Dashboard 
-          data={data} 
-          mode={mode}
-          onNavigate={handleScreenChange}
-        />
+      return (
+        <div className="lg:pl-[240px]">
+          <Dashboard data={data} mode={mode} onNavigate={handleScreenChange} />
+        </div>
       );
     }
 
@@ -60,39 +63,33 @@ export default function Home() {
       switch (currentScreen) {
         case 'alert':
           return (
-            <div className="lg:pl-64">
-            <CrisisAlertCard 
-              data={data} 
-              onDeploy={() => handleScreenChange('drone')}
-              onManualReview={() => handleScreenChange('threat')}
-            />
+            <div className="lg:pl-[240px]">
+              <CrisisAlertCard
+                data={data}
+                onDeploy={() => handleScreenChange('drone')}
+                onManualReview={() => handleScreenChange('threat')}
+              />
             </div>
           );
         case 'drone':
           return (
-            <div className="lg:pl-64">
-            <DroneResponseMonitoring 
-              data={data} 
-              onThreatAssessment={() => handleScreenChange('threat')}
-            />
+            <div className="lg:pl-[240px]">
+              <DroneResponseMonitoring
+                data={data}
+                onThreatAssessment={() => handleScreenChange('threat')}
+              />
             </div>
           );
         case 'threat':
           return (
-            <div className="lg:pl-64">
-            <ThreatAssessment 
-              data={data} 
-              onBroadcast={() => handleScreenChange('coordination')}
-            />
+            <div className="lg:pl-[240px]">
+              <ThreatAssessment data={data} onBroadcast={() => {}} />
             </div>
           );
         case 'coordination':
           return (
-            <div className="lg:pl-64">
-            <GuardCoordination 
-              data={data} 
-                onComplete={() => handleScreenChange('dashboard')}
-            />
+            <div className="lg:pl-[240px]">
+              <GuardCoordination data={data} onComplete={() => handleScreenChange('dashboard')} />
             </div>
           );
         default:
@@ -102,25 +99,22 @@ export default function Home() {
       switch (currentScreen) {
         case 'timeline':
           return (
-            <div className="lg:pl-64">
-            <PostIncidentTimeline 
-              data={data} 
-              onEventClick={(eventId) => {
-                handleScreenChange('evidence');
-                setTimeout(() => {
-                  setData((prev: any) => ({ ...prev, selectedEventId: eventId }));
-                }, 0);
-              }}
-            />
+            <div className="lg:pl-[240px]">
+              <PostIncidentTimeline
+                data={data}
+                onEventClick={(eventId) => {
+                  handleScreenChange('evidence');
+                  setTimeout(() => {
+                    setData((prev: any) => ({ ...prev, selectedEventId: eventId }));
+                  }, 0);
+                }}
+              />
             </div>
           );
         case 'evidence':
           return (
-            <div className="lg:pl-64">
-            <EvidenceDetail 
-              data={data} 
-              onBack={() => handleScreenChange('timeline')}
-            />
+            <div className="lg:pl-[240px]">
+              <EvidenceDetail data={data} onBack={() => handleScreenChange('timeline')} />
             </div>
           );
         default:
@@ -130,9 +124,9 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-neutral text-text">
-      <Sidebar 
-        mode={mode} 
+    <main className="min-h-screen bg-bg-base text-text-primary">
+      <Sidebar
+        mode={mode}
         currentScreen={currentScreen}
         onNavigate={handleScreenChange}
         onModeChange={handleModeChange}
@@ -141,4 +135,3 @@ export default function Home() {
     </main>
   );
 }
-

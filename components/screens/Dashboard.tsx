@@ -1,5 +1,8 @@
 'use client';
 
+import { Header, KPITile, Card, CardHeader, CardTitle, CardContent, ActionList, ActivityRow, Button } from '@/src/components/ui';
+import { ActivityIcon } from '@/src/components/ui/Icons';
+
 type Screen = 'dashboard' | 'alert' | 'drone' | 'threat' | 'coordination' | 'timeline' | 'evidence';
 
 interface DashboardProps {
@@ -11,18 +14,15 @@ interface DashboardProps {
 export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
   if (!data) {
     return (
-      <div className="min-h-screen bg-neutral">
-        <div className="lg:pl-64">
-          <div className="max-w-7xl mx-auto px-6 py-12">
-            <div className="text-white">Loading...</div>
-          </div>
+      <div className="min-h-screen bg-bg-base">
+        <div className="max-w-7xl mx-auto px-gutter py-10">
+          <div className="text-text-primary">Loading...</div>
         </div>
       </div>
     );
   }
 
   const { alert, drone, timeline } = data || {};
-
   const recentIncidents = timeline?.slice(-3).reverse() || [];
   const activeAlerts = alert?.confidence >= 70 ? 1 : 0;
 
@@ -30,213 +30,175 @@ export default function Dashboard({ data, mode, onNavigate }: DashboardProps) {
     {
       label: 'Active Alerts',
       value: activeAlerts,
-      icon: '🔴',
-      color: 'text-red-400',
-      bg: 'bg-red-500/5',
-      border: 'border-red-500/20',
-      onClick: () => onNavigate('alert')
+      onClick: () => onNavigate('alert'),
     },
     {
       label: 'Active Drones',
       value: 1,
-      icon: '🚁',
-      color: 'text-blue-400',
-      bg: 'bg-blue-500/5',
-      border: 'border-blue-500/20',
-      onClick: () => onNavigate('drone')
+      onClick: () => onNavigate('drone'),
     },
     {
       label: 'System Health',
       value: `${alert?.sensorHealth || 95}%`,
-      icon: '💚',
-      color: 'text-green-400',
-      bg: 'bg-green-500/5',
-      border: 'border-green-500/20'
     },
     {
       label: 'Recent Incidents',
       value: timeline?.length || 0,
-      icon: '📋',
-      color: 'text-amber-400',
-      bg: 'bg-amber-500/5',
-      border: 'border-amber-500/20',
-      onClick: () => onNavigate('timeline')
-    }
+      onClick: () => onNavigate('timeline'),
+    },
   ];
 
-  const quickActions = mode === 'crisis' 
+  const quickActions = mode === 'crisis'
     ? [
-        { label: 'View Active Alert', screen: 'alert' as Screen, icon: '🔴' },
-        { label: 'Monitor Drone', screen: 'drone' as Screen, icon: '🚁' },
-        { label: 'Assess Threat', screen: 'threat' as Screen, icon: '⚠️' },
-        { label: 'Coordinate Guards', screen: 'coordination' as Screen, icon: '👮' }
+        { label: 'View Active Alert', screen: 'alert' as Screen },
+        { label: 'Monitor Drone', screen: 'drone' as Screen },
+        { label: 'Assess Threat', screen: 'threat' as Screen },
+        { label: 'Coordinate Guards', screen: 'coordination' as Screen },
       ]
     : [
-        { label: 'View Timeline', screen: 'timeline' as Screen, icon: '📅' },
-        { label: 'Review Evidence', screen: 'evidence' as Screen, icon: '📋' }
+        { label: 'View Timeline', screen: 'timeline' as Screen },
+        { label: 'Review Evidence', screen: 'evidence' as Screen },
       ];
 
   return (
-    <div className="min-h-screen bg-neutral">
-      <div className="lg:pl-64">
-        <div className="max-w-7xl mx-auto px-6 py-12">
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-[24px] font-semibold text-white mb-2 tracking-tight leading-[1.3]">Dashboard</h1>
-            <p className="text-sm text-white/50 leading-relaxed">
-              {mode === 'crisis' 
-                ? 'Real-time security monitoring and crisis response' 
-                : 'Post-incident analysis and evidence review'}
-            </p>
-          </div>
+    <div className="min-h-screen bg-bg-base animate-fade-in">
+      <div className="max-w-7xl mx-auto px-gutter py-10">
+          <Header
+            title="Dashboard"
+            description={
+              mode === 'crisis'
+                ? 'Real-time security monitoring and crisis response'
+                : 'Post-incident analysis and evidence review'
+            }
+          />
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-section">
             {stats.map((stat, index) => (
-              <div
+              <KPITile
                 key={index}
+                label={stat.label}
+                value={stat.value}
                 onClick={stat.onClick}
-                className={`${stat.bg} ${stat.border} border rounded-lg p-6 hover:border-white/20 transition-all duration-150 shadow-sm hover:shadow-md ${
-                  stat.onClick ? 'cursor-pointer' : ''
-                }`}
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-2xl">{stat.icon}</span>
-                  <span className={`text-2xl font-semibold ${stat.color}`}>{stat.value}</span>
-                </div>
-                <div className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">
-                  {stat.label}
-                </div>
-              </div>
+                className="animate-fade-in-up"
+                style={{ animationDelay: `${index * 50}ms` }}
+              />
             ))}
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* 2-Column Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-section">
             {/* Quick Actions */}
-            <div className="lg:col-span-1">
-              <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
-                <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">
+            <Card variant="glass" className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+              <CardHeader>
+                <CardTitle className="text-sectionHeader font-semibold text-text-primary">
                   Quick Actions
-                </h2>
-                <div className="space-y-2">
-                  {quickActions.map((action, index) => (
-                      <button
-                      key={index}
-                      onClick={() => onNavigate(action.screen)}
-                      className="w-full flex items-center gap-3 px-4 py-3 bg-white/[0.02] border border-white/5 rounded-lg hover:bg-white/[0.03] hover:border-white/10 transition-all duration-150 text-left shadow-sm hover:shadow-md"
-                    >
-                      <span className="text-lg">{action.icon}</span>
-                      <span className="text-sm font-medium text-white/80">{action.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ActionList
+                  items={quickActions.map((action) => ({
+                    label: action.label,
+                    onClick: () => onNavigate(action.screen),
+                  }))}
+                />
+              </CardContent>
+            </Card>
 
             {/* Recent Activity */}
-            <div className="lg:col-span-2">
-              <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
-                <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">
+            <Card variant="glass" className="animate-fade-in-up" style={{ animationDelay: '250ms' }}>
+              <CardHeader>
+                <CardTitle className="text-sectionHeader font-semibold text-text-primary">
                   Recent Activity
-                </h2>
-                <div className="space-y-4">
-                  {recentIncidents.length > 0 ? (
-                    recentIncidents.map((incident: any, index: number) => (
-                      <div
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {recentIncidents.length > 0 ? (
+                  <div className="space-y-3">
+                    {recentIncidents.map((incident: any, index: number) => (
+                      <ActivityRow
                         key={index}
-                        className="flex items-start gap-4 p-4 bg-white/[0.02] border border-white/5 rounded-lg hover:border-white/10 transition-all duration-150 shadow-sm hover:shadow-md"
-                      >
-                        <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
-                          <span className="text-lg">
-                            {incident.type === 'alert' ? '🔴' : 
-                             incident.type === 'action' ? '🚁' : 
-                             incident.type === 'resolution' ? '✅' : '📋'}
-                          </span>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between mb-1">
-                            <div className="text-sm font-medium text-white">{incident.event}</div>
-                            <div className="text-xs text-white/40 font-mono">{incident.time}</div>
-                          </div>
-                          <div className="text-xs text-white/60 line-clamp-2">{incident.details}</div>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="text-center py-12 text-white/30">
-                      <div className="text-4xl mb-3 opacity-50">📋</div>
-                      <div className="text-sm">No recent activity</div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
+                        icon={<ActivityIcon className="w-4 h-4" />}
+                        title={incident.event}
+                        description={incident.details}
+                        timestamp={incident.time}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="py-16 text-center">
+                    <ActivityIcon className="w-10 h-10 text-text-tertiary opacity-40 mx-auto mb-4" />
+                    <div className="text-body text-text-secondary">No recent activity</div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </div>
 
-          {/* System Status */}
+          {/* Alert Status */}
           {mode === 'crisis' && alert && (
-            <div className="mt-6 bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
-              <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">
-                Current Alert Status
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <div className="text-xs text-white/40 mb-1">Location</div>
-                  <div className="text-sm font-medium text-white">{alert?.location || 'N/A'}</div>
+            <Card variant="glass" className="mb-section animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+              <CardHeader>
+                <CardTitle className="text-sectionHeader font-semibold text-text-primary">
+                  Current Alert Status
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                  <div>
+                    <div className="text-label font-medium text-text-tertiary mb-2">Location</div>
+                    <div className="text-value font-semibold text-text-primary">{alert?.location || 'N/A'}</div>
+                  </div>
+                  <div>
+                    <div className="text-label font-medium text-text-tertiary mb-2">Confidence</div>
+                    <div className="text-value font-semibold text-text-primary">{alert?.confidence || 0}%</div>
+                  </div>
+                  <div>
+                    <div className="text-label font-medium text-text-tertiary mb-2">Recommended Action</div>
+                    <div className="text-value font-semibold text-text-primary">{alert?.recommendedAction || 'N/A'}</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-xs text-white/40 mb-1">Confidence</div>
-                  <div className="text-sm font-medium text-white">{alert?.confidence || 0}%</div>
-                </div>
-                <div>
-                  <div className="text-xs text-white/40 mb-1">Recommended Action</div>
-                  <div className="text-sm font-medium text-white">{alert?.recommendedAction || 'N/A'}</div>
-                </div>
-              </div>
-              <button
-                onClick={() => onNavigate('alert')}
-                className="mt-4 w-full bg-alert text-white font-semibold py-3 px-6 rounded-md hover:bg-alert-hover active:bg-alert-active transition-all duration-150 shadow-button-hover hover:shadow-button-active focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2"
-              >
-                View Full Alert Details
-              </button>
-            </div>
+                <Button variant="ghost" className="w-full" onClick={() => onNavigate('alert')}>
+                  View Full Alert Details
+                </Button>
+              </CardContent>
+            </Card>
           )}
 
           {/* Drone Status */}
           {mode === 'crisis' && drone && (
-            <div className="mt-6 bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
-              <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">
-                Active Drone Status
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div>
-                  <div className="text-xs text-white/40 mb-1">Drone ID</div>
-                  <div className="text-sm font-medium text-white">Drone {drone?.id || 'N/A'}</div>
+            <Card variant="glass" className="animate-fade-in-up" style={{ animationDelay: '350ms' }}>
+              <CardHeader>
+                <CardTitle className="text-sectionHeader font-semibold text-text-primary">
+                  Active Drone Status
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                  <div>
+                    <div className="text-label font-medium text-text-tertiary mb-2">Drone ID</div>
+                    <div className="text-value font-semibold text-text-primary">Drone {drone?.id || 'N/A'}</div>
+                  </div>
+                  <div>
+                    <div className="text-label font-medium text-text-tertiary mb-2">Battery</div>
+                    <div className="text-value font-semibold text-text-primary">{drone?.battery?.toFixed(0) || '0'}%</div>
+                  </div>
+                  <div>
+                    <div className="text-label font-medium text-text-tertiary mb-2">Distance</div>
+                    <div className="text-value font-semibold text-text-primary">{drone?.distance?.toFixed(1) || '0.0'}m</div>
+                  </div>
+                  <div>
+                    <div className="text-label font-medium text-text-tertiary mb-2">Status</div>
+                    <div className="text-value font-semibold text-text-primary">{drone?.status || 'Unknown'}</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-xs text-white/40 mb-1">Battery</div>
-                  <div className="text-sm font-medium text-white">{drone?.battery?.toFixed(0) || '0'}%</div>
-                </div>
-                <div>
-                  <div className="text-xs text-white/40 mb-1">Distance</div>
-                  <div className="text-sm font-medium text-white">{drone?.distance?.toFixed(1) || '0.0'}m</div>
-                </div>
-                <div>
-                  <div className="text-xs text-white/40 mb-1">Status</div>
-                  <div className="text-sm font-medium text-white">{drone?.status || 'Unknown'}</div>
-                </div>
-              </div>
-              <button
-                onClick={() => onNavigate('drone')}
-                className="mt-4 w-full bg-info text-white font-semibold py-3 px-6 rounded-md hover:bg-info-hover active:bg-info/80 transition-all duration-150 shadow-md hover:shadow-lg focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2"
-              >
-                View Live Feed
-              </button>
-            </div>
+                <Button variant="ghost" className="w-full" onClick={() => onNavigate('drone')}>
+                  View Live Feed
+                </Button>
+              </CardContent>
+            </Card>
           )}
         </div>
-      </div>
     </div>
   );
 }
-

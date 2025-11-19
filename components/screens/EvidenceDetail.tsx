@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Header, Card, CardHeader, CardTitle, CardContent, Button, Textarea, KPITile } from '@/src/components/ui';
 
 interface EvidenceDetailProps {
   data: any;
@@ -16,116 +17,128 @@ export default function EvidenceDetail({ data, onBack }: EvidenceDetailProps) {
 
   const handleAddNote = () => {
     if (annotation.trim()) {
-      setAnnotations(prev => [...prev, annotation]);
+      setAnnotations((prev) => [...prev, annotation]);
       setAnnotation('');
     }
   };
 
   return (
-    <div className="min-h-screen bg-neutral">
-      <div className="max-w-5xl mx-auto px-6 py-10">
+    <div className="min-h-screen bg-bg-base animate-fade-in">
+      <div className="max-w-5xl mx-auto px-gutter py-10">
         {/* Header */}
-        <div className="mb-8">
-          <button
-            onClick={onBack}
-            className="text-white/60 hover:text-white/80 mb-4 flex items-center gap-2 text-sm transition-colors duration-150"
-          >
+        <div className="mb-10">
+          <Button variant="quiet" onClick={onBack} className="mb-6">
             ← Back to Timeline
-          </button>
-          <h1 className="text-[24px] font-semibold text-white mb-2 tracking-tight leading-[1.3]">Evidence Detail</h1>
-          <p className="text-sm text-white/50 leading-relaxed">{event.event} — {event.time}</p>
+          </Button>
+          <Header
+            title="Evidence Detail"
+            description={`${event.event} — ${event.time}`}
+          />
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-section">
           {/* Video Evidence */}
           {event.video && (
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg overflow-hidden shadow-md">
-              <div className="bg-white/[0.02] border-b border-white/5 px-4 py-3 flex justify-between items-center">
-                <div className="flex items-center gap-2">
-                  <span className="text-[11px] font-semibold text-white/60 uppercase tracking-[0.5px]">Playback</span>
+            <Card variant="glass" className="overflow-hidden">
+              <div className="bg-bg-raised border-b border-border-default px-6 py-4 flex justify-between items-center">
+                <div className="flex items-center gap-3">
+                  <span className="text-label font-semibold text-text-tertiary uppercase tracking-wider">Playback</span>
                 </div>
-                <span className="text-white/50 text-xs font-mono">{event.time}</span>
+                <span className="text-meta text-text-tertiary font-mono">{event.time}</span>
               </div>
-              <div className="bg-black/40 aspect-video flex items-center justify-center relative">
-                <div className="text-white/30 text-sm">📹 {event.event}</div>
-                <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded text-white text-xs border border-white/10">
+              <div className="bg-black/60 aspect-video flex items-center justify-center relative backdrop-blur-sm">
+                <div className="text-text-tertiary text-body">📹 {event.event}</div>
+                <div className="absolute bottom-6 right-6 glass rounded-lg px-4 py-2 text-text-primary text-bodySmall">
                   {event.time}
                 </div>
               </div>
-            </div>
+            </Card>
           )}
 
           {/* Sensor Data Snapshot */}
           {event.sensorData && (
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
-              <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Sensor Data Snapshot</h2>
-              <div className="grid grid-cols-3 gap-3">
-                {Object.entries(event.sensorData).map(([key, value]: [string, any]) => (
-                  <div key={key} className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
-                    <div className="text-[11px] font-semibold text-white/40 uppercase mb-2 tracking-[0.5px]">{key}</div>
-                    <div className="text-white font-semibold text-2xl">{value}%</div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <Card variant="glass">
+              <CardHeader>
+                <CardTitle className="text-sectionHeader font-semibold text-text-primary">
+                  Sensor Data Snapshot
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-3 gap-4">
+                  {Object.entries(event.sensorData).map(([key, value]: [string, any]) => (
+                    <KPITile key={key} label={key} value={`${value}%`} />
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           )}
 
           {/* Decision Notes */}
           {event.notes && event.notes.length > 0 && (
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
-              <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Decision Notes</h2>
-              <div className="space-y-3">
-                {event.notes.map((note: any, index: number) => (
-                  <div key={index} className="bg-white/[0.02] border-l-2 border-blue-500/30 rounded-lg p-4">
-                    <div className="text-white/60 font-medium text-xs mb-2">{note.author}</div>
-                    <div className="text-white/70 text-sm">{note.text}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <Card variant="glass">
+              <CardHeader>
+                <CardTitle className="text-sectionHeader font-semibold text-text-primary">
+                  Decision Notes
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {event.notes.map((note: any, index: number) => (
+                    <div key={index} className="glass rounded-xl p-5 border-l-4 border-accent-primary">
+                      <div className="text-text-secondary font-medium text-bodySmall mb-2">{note.author}</div>
+                      <div className="text-text-secondary text-body leading-relaxed">{note.text}</div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           )}
 
           {/* User Annotations */}
           {annotations.length > 0 && (
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
-              <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Your Annotations</h2>
-              <div className="space-y-3">
-                {annotations.map((note, index) => (
-                  <div key={index} className="bg-blue-500/5 border border-blue-500/20 rounded-lg p-4">
-                    <div className="text-white/70 text-sm">{note}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <Card variant="glass">
+              <CardHeader>
+                <CardTitle className="text-sectionHeader font-semibold text-text-primary">
+                  Your Annotations
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {annotations.map((note, index) => (
+                    <div key={index} className="glass rounded-xl p-5 border-accent-border">
+                      <div className="text-text-secondary text-body leading-relaxed">{note}</div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           )}
 
           {/* Add Annotation */}
-          <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
-            <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Add Annotation</h2>
-            <textarea
-              value={annotation}
-              onChange={(e) => setAnnotation(e.target.value)}
-              className="w-full bg-white/[0.02] border border-white/5 rounded-lg p-4 text-white text-sm min-h-[120px] focus:outline-none focus:border-white/20 transition-all duration-200 placeholder:text-white/30 mb-4"
-              placeholder="Add your notes here..."
-            />
-            <div className="flex gap-3">
-              <button
-                onClick={handleAddNote}
-                className="bg-info text-white font-semibold py-3 px-6 rounded-md hover:bg-info-hover active:bg-info/80 transition-all duration-150 min-h-[48px] shadow-md hover:shadow-lg focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2"
-              >
-                Add Note
-              </button>
-              <button className="bg-white/5 text-white font-semibold py-3 px-6 rounded-md hover:bg-white/10 active:bg-white/15 transition-all duration-150 min-h-[48px] border border-white/10 hover:border-white/20 focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2">
-                Share with Team
-              </button>
-              <button className="bg-white/5 text-white font-semibold py-3 px-6 rounded-md hover:bg-white/10 active:bg-white/15 transition-all duration-150 min-h-[48px] border border-white/10 hover:border-white/20 focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2">
-                Flag for System Improvement
-              </button>
-            </div>
-          </div>
+          <Card variant="glass">
+            <CardHeader>
+              <CardTitle className="text-sectionHeader font-semibold text-text-primary">
+                Add Annotation
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Textarea
+                value={annotation}
+                onChange={(e) => setAnnotation(e.target.value)}
+                className="mb-6"
+                placeholder="Add your notes here..."
+              />
+              <div className="flex gap-4">
+                <Button variant="primary" onClick={handleAddNote}>
+                  Add Note
+                </Button>
+                <Button variant="ghost">Share with Team</Button>
+                <Button variant="ghost">Flag for System Improvement</Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
   );
 }
-

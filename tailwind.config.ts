@@ -1,72 +1,106 @@
 import type { Config } from "tailwindcss";
+import { tokens } from "./src/design-system/tokens";
 
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        // Status Colors (Semantic, High Saturation)
-        alert: {
-          DEFAULT: "#DC2626",
-          hover: "#B91C1C",
-          active: "#991B1B",
-          light: "#FEE2E2",
+        // Background surfaces
+        bg: {
+          base: tokens.colors.bg.base,
+          background: tokens.colors.bg.background,
+          surface: tokens.colors.bg.surface,
+          raised: tokens.colors.bg.raised,
+          sunken: tokens.colors.bg.sunken,
         },
-        warning: {
-          DEFAULT: "#F59E0B",
-          light: "#FEF3C7",
-        },
-        success: {
-          DEFAULT: "#059669",
-          light: "#D1FAE5",
-        },
-        info: {
-          DEFAULT: "#3B82F6",
-          hover: "#2563EB",
-          light: "#DBEAFE",
-        },
-        // Neutrals
-        neutral: {
-          DEFAULT: "#0F172A",
-          bg: "#F8FAFC",
-          surface: "#FFFFFF",
-          subtle: "#F1F5F9",
-        },
-        // Borders
+        // Border
         border: {
-          strong: "#E2E8F0",
-          weak: "#CBD5E1",
-          subtle: "#F1F5F9",
+          DEFAULT: tokens.colors.border.default,
+          hover: tokens.colors.border.hover,
+          active: tokens.colors.border.active,
+          accent: tokens.colors.border.accent,
         },
-        // Text
+        // Text colors
         text: {
-          primary: "#0F172A",
-          secondary: "#475569",
-          muted: "#94A3B8",
-          inverse: "#F8FAFC",
+          primary: tokens.colors.text.primary,
+          secondary: tokens.colors.text.secondary,
+          tertiary: tokens.colors.text.tertiary,
+          disabled: tokens.colors.text.disabled,
         },
-        // Legacy support
-        secondary: "#3B82F6",
+        // Accent (Linear indigo-purple)
+        accent: {
+          primary: tokens.colors.accent.primary,
+          hover: tokens.colors.accent.hover,
+          soft: tokens.colors.accent.soft,
+          border: tokens.colors.accent.border,
+        },
+        // Semantic colors
+        alert: tokens.colors.semantic.alert,
+        success: tokens.colors.semantic.success,
+        warning: tokens.colors.semantic.warning,
+        info: tokens.colors.semantic.info,
+        // Legacy mappings
+        surface: {
+          base: tokens.colors.bg.base,
+          surface: tokens.colors.bg.surface,
+        },
+        danger: {
+          DEFAULT: tokens.colors.semantic.alert,
+        },
+      },
+      fontFamily: {
+        sans: [...tokens.typography.fontFamily.sans],
+        mono: [...tokens.typography.fontFamily.mono],
+      },
+      fontSize: {
+        display: [...tokens.typography.fontSize.display] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
+        h1: [...tokens.typography.fontSize.h1] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
+        h2: [...tokens.typography.fontSize.h2] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
+        pageTitle: [...tokens.typography.fontSize.pageTitle] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
+        sectionHeader: [...tokens.typography.fontSize.sectionHeader] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
+        cardTitle: [...tokens.typography.fontSize.cardTitle] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
+        body: [...tokens.typography.fontSize.body] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
+        bodySmall: [...tokens.typography.fontSize.bodySmall] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
+        label: [...tokens.typography.fontSize.label] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
+        meta: [...tokens.typography.fontSize.meta] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
+        value: [...tokens.typography.fontSize.value] as [string, { lineHeight: string; fontWeight: string; letterSpacing: string }],
+      },
+      spacing: {
+        ...tokens.spacing,
+        gutter: tokens.spacing.gutter,
+        section: tokens.spacing.section,
+        cardPadding: tokens.spacing.cardPadding,
+        rowGap: tokens.spacing.rowGap,
+      },
+      borderRadius: {
+        ...tokens.radius,
+        DEFAULT: tokens.radius.md,
       },
       boxShadow: {
-        'sm': '0 1px 2px rgba(15, 23, 42, 0.05)',
-        'md': '0 4px 6px rgba(15, 23, 42, 0.07), 0 2px 4px rgba(15, 23, 42, 0.05)',
-        'lg': '0 10px 15px rgba(15, 23, 42, 0.1), 0 4px 6px rgba(15, 23, 42, 0.05)',
-        'xl': '0 20px 25px rgba(15, 23, 42, 0.15), 0 10px 10px rgba(15, 23, 42, 0.05)',
-        'button-hover': '0 4px 12px rgba(220, 38, 38, 0.15)',
-        'button-active': '0 2px 6px rgba(220, 38, 38, 0.2)',
+        ...tokens.shadow,
+        DEFAULT: tokens.shadow.md,
+      },
+      backdropBlur: {
+        glass: '20px',
       },
       transitionTimingFunction: {
-        'standard': 'cubic-bezier(0.4, 0, 0.2, 1)',
-        'bounce': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+        DEFAULT: tokens.transition.easeOut,
+        easeOut: tokens.transition.easeOut,
+        easeInOut: tokens.transition.easeInOut,
+      },
+      transitionDuration: {
+        DEFAULT: '200ms',
+        fast: '180ms',
+        slow: '220ms',
       },
     },
   },
   plugins: [],
 };
 export default config;
-

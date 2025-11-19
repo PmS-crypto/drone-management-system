@@ -1,5 +1,9 @@
 'use client';
 
+import { Card, CardHeader, CardTitle, CardContent, Button, StatusPill } from '@/src/components/ui';
+import { cn } from '@/src/lib/utils';
+import { AlertIcon } from '@/src/components/ui/Icons';
+
 interface CrisisAlertCardProps {
   data: any;
   onDeploy: () => void;
@@ -8,130 +12,128 @@ interface CrisisAlertCardProps {
 
 export default function CrisisAlertCard({ data, onDeploy, onManualReview }: CrisisAlertCardProps) {
   const { alert } = data;
+
   const getConfidenceColor = () => {
     if (alert.confidence >= 85) {
       return {
-        bg: 'bg-red-500/10',
-        border: 'border-red-500/30',
-        shadow: 'shadow-lg shadow-red-500/10',
-        text: 'text-red-400',
-        progress: 'bg-red-500'
+        border: 'border-alert',
+        text: 'text-alert',
+        progress: 'bg-alert',
+        pill: 'high' as const,
       };
     } else if (alert.confidence >= 70) {
       return {
-        bg: 'bg-amber-500/10',
-        border: 'border-amber-500/30',
-        shadow: 'shadow-lg shadow-amber-500/10',
-        text: 'text-amber-400',
-        progress: 'bg-amber-500'
+        border: 'border-warning',
+        text: 'text-warning',
+        progress: 'bg-warning',
+        pill: 'warning' as const,
       };
     } else {
       return {
-        bg: 'bg-amber-500/5',
-        border: 'border-amber-500/20',
-        shadow: 'shadow-lg shadow-amber-500/5',
-        text: 'text-amber-400/80',
-        progress: 'bg-amber-500/80'
+        border: 'border-warning',
+        text: 'text-warning',
+        progress: 'bg-warning',
+        pill: 'warning' as const,
       };
     }
   };
 
   const colors = getConfidenceColor();
-  const confidenceLabel = alert.confidence >= 85 
-    ? 'High confidence — Real threat' 
-    : alert.confidence >= 70 
-    ? 'Moderate confidence — Review recommended' 
-    : 'Low confidence — Manual review required';
+  const confidenceLabel =
+    alert.confidence >= 85
+      ? 'High confidence — Real threat'
+      : alert.confidence >= 70
+        ? 'Moderate confidence — Review recommended'
+        : 'Low confidence — Manual review required';
 
   return (
-    <div className="min-h-screen bg-neutral flex items-center justify-center p-6 py-12">
-      <div className={`w-full max-w-2xl ${colors.bg} ${colors.border} border rounded-lg p-8 ${colors.shadow} animate-slide-in`}>
+    <div className="min-h-screen bg-bg-base flex items-center justify-center p-gutter animate-fade-in">
+      <Card variant="glass" className={cn('w-full max-w-2xl animate-scale-in', colors.border)}>
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-red-500/20 mb-4">
-            <span className="text-3.5xl">🔴</span>
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-bg-raised border border-border-default mb-4">
+            <AlertIcon className="w-6 h-6 text-alert" />
           </div>
-          <h1 className="text-[32px] font-bold text-red-500 mb-3 tracking-tight leading-tight">Security Alert</h1>
-          <div className="space-y-2 text-sm text-white/60">
-            <div className="flex items-center justify-center gap-2">
-              <span className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Location</span>
-              <span>{alert.location}</span>
+          <h1 className="text-h2 font-semibold text-text-primary mb-4 tracking-tight leading-tight">
+            Security Alert
+          </h1>
+          <div className="space-y-2 text-body text-text-secondary">
+            <div className="flex items-center justify-center gap-3">
+              <span className="text-label font-medium text-text-tertiary">Location</span>
+              <span className="font-medium">{alert.location}</span>
             </div>
-            <div className="flex items-center justify-center gap-2">
-              <span className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Time</span>
-              <span>{alert.time} AM</span>
+            <div className="flex items-center justify-center gap-3">
+              <span className="text-label font-medium text-text-tertiary">Time</span>
+              <span className="font-medium">{alert.time} AM</span>
             </div>
           </div>
         </div>
 
         {/* Main Content Card */}
-        <div className="bg-white/[0.02] border border-white/5 rounded-lg p-8 mb-6 backdrop-blur-sm shadow-md">
+        <Card variant="glass" className="mb-6">
           {/* System Confidence */}
           <div className="mb-6">
             <div className="flex justify-between items-center mb-4">
-              <span className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">System Confidence</span>
-              <span className={`text-2xl font-semibold ${colors.text}`}>{alert.confidence}%</span>
+              <span className="text-label font-medium text-text-tertiary">
+                System Confidence
+              </span>
+              <StatusPill variant={colors.pill} size="md">
+                {alert.confidence}%
+              </StatusPill>
             </div>
-            <div className="w-full bg-white/5 rounded-full h-2 overflow-hidden mb-3 shadow-sm">
-              <div 
-                className="h-full rounded-full transition-all duration-500"
-                style={{ 
+            <div className="w-full bg-bg-base rounded-full h-2 overflow-hidden mb-3">
+              <div
+                className={cn('h-full rounded-full transition-all duration-500', colors.progress)}
+                style={{
                   width: `${alert.confidence}%`,
-                  background: alert.confidence >= 85 
-                    ? 'linear-gradient(90deg, #F59E0B 0%, #DC2626 100%)'
-                    : 'linear-gradient(90deg, #F59E0B 0%, #F59E0B 100%)'
                 }}
               />
             </div>
-            <div className="text-xs text-white/50">
-              {confidenceLabel}
-            </div>
+            <div className="text-body text-text-secondary leading-relaxed">{confidenceLabel}</div>
           </div>
 
-          <div className="space-y-4 pt-4 border-t border-white/5">
+          <div className="space-y-4 pt-6 border-t border-border-default">
             {/* Sensor Health */}
-            <div className="bg-white/[0.02] border border-white/5 rounded-md p-4">
-              <div className="flex justify-between items-center mb-1">
-                <span className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px]">Sensor Health</span>
-                <span className="text-base font-semibold text-white/80 font-mono">{alert.sensorHealth}%</span>
+            <div className="glass rounded-xl p-4">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-label font-medium text-text-tertiary">
+                  Sensor Health
+                </span>
+                <span className="text-value font-semibold text-text-primary font-mono">
+                  {alert.sensorHealth}%
+                </span>
               </div>
-              <div className="text-xs text-white/50">
-                Reliable today (1 false alarm logged)
-              </div>
+              <div className="text-bodySmall text-text-secondary">Reliable today (1 false alarm logged)</div>
             </div>
 
             {/* Recommended Action */}
-            <div className="bg-amber-500/10 border-l-[3px] border-amber-500 rounded-md p-4">
-              <div className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-2">Recommended Action</div>
-              <div className="text-sm font-normal text-white leading-relaxed">
-                <span className="font-semibold">{alert.recommendedAction}</span> <span className="text-white/50">(ETA: {alert.eta}s)</span>
+            <div className="glass rounded-xl p-4 border-l-4 border-warning">
+              <div className="text-label font-medium text-text-tertiary mb-2">
+                Recommended Action
+              </div>
+              <div className="text-body font-medium text-text-primary leading-relaxed">
+                <span className="font-semibold">{alert.recommendedAction}</span>{' '}
+                <span className="text-text-secondary">(ETA: {alert.eta}s)</span>
               </div>
             </div>
           </div>
-        </div>
+        </Card>
 
         {/* Action Buttons */}
         <div className="flex gap-4">
-          <button
-            onClick={onDeploy}
-            className="flex-1 bg-alert text-white font-semibold py-3 px-6 rounded-md hover:bg-alert-hover active:bg-alert-active transition-all duration-150 min-h-[48px] shadow-button-hover hover:shadow-button-active focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2"
-          >
+          <Button variant="primary" className="flex-1" onClick={onDeploy}>
             Deploy Drone
-          </button>
-          <button
-            onClick={onManualReview}
-            className="flex-1 bg-white/5 text-white font-semibold py-3 px-6 rounded-md hover:bg-white/10 active:bg-white/15 transition-all duration-150 min-h-[48px] border border-white/10 hover:border-white/20 focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2"
-          >
+          </Button>
+          <Button variant="ghost" className="flex-1" onClick={onManualReview}>
             Manual Review
-          </button>
+          </Button>
         </div>
 
         {/* Footer Note */}
-        <div className="mt-6 text-center text-xs text-white/30">
+        <div className="mt-6 text-center text-bodySmall text-text-tertiary">
           Last year's near-miss was in this gallery
         </div>
-      </div>
+      </Card>
     </div>
   );
 }
-

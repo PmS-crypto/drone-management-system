@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { Header, Card, CardHeader, CardTitle, CardContent, Button, EmptyState, KPITile } from '@/src/components/ui';
+import { cn } from '@/src/lib/utils';
 
 interface PostIncidentTimelineProps {
   data: any;
@@ -15,39 +17,39 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
     switch (type) {
       case 'alert':
         return {
-          border: 'border-red-500/30',
-          bg: 'bg-red-500/5',
-          dot: 'bg-red-500/20 border-red-500/40'
+          border: 'border-alert/40',
+          bg: 'bg-alert/10',
+          dot: 'bg-alert/20 border-alert/40',
         };
       case 'action':
         return {
-          border: 'border-blue-500/30',
-          bg: 'bg-blue-500/5',
-          dot: 'bg-blue-500/20 border-blue-500/40'
+          border: 'border-accent-border',
+          bg: 'bg-accent-soft',
+          dot: 'bg-accent-soft border-accent-border',
         };
       case 'status':
         return {
-          border: 'border-amber-500/30',
-          bg: 'bg-amber-500/5',
-          dot: 'bg-amber-500/20 border-amber-500/40'
+          border: 'border-warning/40',
+          bg: 'bg-warning/10',
+          dot: 'bg-warning/20 border-warning/40',
         };
       case 'resolution':
         return {
-          border: 'border-green-500/30',
-          bg: 'bg-green-500/5',
-          dot: 'bg-green-500/20 border-green-500/40'
+          border: 'border-success/40',
+          bg: 'bg-success/10',
+          dot: 'bg-success/20 border-success/40',
         };
       case 'complete':
         return {
-          border: 'border-white/10',
-          bg: 'bg-white/[0.02]',
-          dot: 'bg-white/10 border-white/20'
+          border: 'border-border-default',
+          bg: 'bg-bg-raised',
+          dot: 'bg-bg-raised border-border-default',
         };
       default:
         return {
-          border: 'border-white/10',
-          bg: 'bg-white/[0.02]',
-          dot: 'bg-white/10 border-white/20'
+          border: 'border-border-default',
+          bg: 'bg-bg-raised',
+          dot: 'bg-bg-raised border-border-default',
         };
     }
   };
@@ -69,75 +71,108 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
     }
   };
 
+  const selectedEvent = timeline.find((e: any) => e.id === selectedEventId);
+
   return (
-    <div className="min-h-screen bg-neutral">
-      <div className="max-w-7xl mx-auto px-6 py-10">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-[24px] font-semibold text-white mb-2 tracking-tight leading-[1.3]">Post-Incident Timeline</h1>
-          <p className="text-sm text-white/50 leading-relaxed">Review incident: Gallery 3, 2:37 AM</p>
-        </div>
+    <div className="min-h-screen bg-bg-base animate-fade-in">
+      <div className="max-w-7xl mx-auto px-gutter py-10">
+        <Header
+          title="Post-Incident Timeline"
+          description="Review incident: Gallery 3, 2:37 AM"
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Timeline (Left - 40%) */}
           <div className="lg:col-span-5">
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
-              <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-6">Timeline</h2>
-              <div className="relative">
-                {/* Vertical Line */}
-                <div className="absolute left-6 top-0 bottom-0 w-[2px] bg-white/10"></div>
+            <Card variant="glass">
+              <CardHeader>
+                <CardTitle className="text-sectionHeader font-semibold text-text-primary">
+                  Timeline
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="relative">
+                  {/* Vertical Line */}
+                  <div className="absolute left-8 top-0 bottom-0 w-[2px] bg-border-default"></div>
 
-                {/* Timeline Events */}
-                <div className="space-y-4">
-                  {timeline.map((event: any, index: number) => {
-                    const colors = getEventColor(event.type);
-                    return (
-                    <div
-                      key={event.id}
-                      className="relative flex items-start gap-4 cursor-pointer group"
-                      onClick={() => {
-                        setSelectedEventId(event.id);
-                      }}
-                    >
-                      {/* Timeline Dot */}
-                        <div className={`relative z-10 w-12 h-12 rounded-full border-2 flex items-center justify-center text-lg ${colors.dot} ${selectedEventId === event.id ? 'scale-110 ring-2 ring-blue-500/30' : ''} group-hover:scale-110 transition-all duration-150`}>
-                        {getEventIcon(event.type)}
-                      </div>
-
-                      {/* Event Card */}
-                        <div className={`flex-1 border rounded-lg p-4 ${colors.bg} ${colors.border} ${selectedEventId === event.id ? 'ring-2 ring-blue-500/30 border-blue-500/40 shadow-md' : 'shadow-sm'} group-hover:border-white/20 group-hover:shadow-md transition-all duration-150`}>
-                        <div className="flex justify-between items-start mb-2">
-                            <div className="font-mono text-white/50 text-xs">{event.time}</div>
-                          {event.video && (
-                              <span className="text-xs text-white/40 bg-white/5 px-2 py-1 rounded border border-white/5">
-                              📹 Video
-                            </span>
-                          )}
-                        </div>
-                          <div className={`text-white mb-1 text-sm ${selectedEventId === event.id ? 'font-semibold' : 'font-medium'}`}>{event.event}</div>
-                          <div className="text-white/60 text-sm leading-relaxed">{event.details}</div>
-                        {event.notes && event.notes.length > 0 && (
-                            <div className="mt-2 text-xs text-white/40">
-                            {event.notes.length} note{event.notes.length !== 1 ? 's' : ''}
+                  {/* Timeline Events */}
+                  <div className="space-y-6">
+                    {timeline.map((event: any, index: number) => {
+                      const colors = getEventColor(event.type);
+                      const isSelected = selectedEventId === event.id;
+                      return (
+                        <div
+                          key={event.id}
+                          className="relative flex items-start gap-4 cursor-pointer group"
+                          onClick={() => {
+                            setSelectedEventId(event.id);
+                          }}
+                        >
+                          {/* Timeline Dot */}
+                          <div
+                            className={cn(
+                              'relative z-10 w-16 h-16 rounded-full border-2 flex items-center justify-center text-xl transition-all duration-200',
+                              colors.dot,
+                              isSelected && 'scale-110 ring-2 ring-accent-primary/30 shadow-lg',
+                              'group-hover:scale-110'
+                            )}
+                          >
+                            {getEventIcon(event.type)}
                           </div>
-                        )}
-                      </div>
-                    </div>
-                    );
-                  })}
+
+                          {/* Event Card */}
+                          <div
+                            className={cn(
+                              'flex-1 border-2 rounded-xl p-5 transition-all duration-200 hover-scale',
+                              colors.bg,
+                              colors.border,
+                              isSelected && 'ring-2 ring-accent-primary/30 border-accent-border shadow-lg',
+                              'group-hover:border-border-hover group-hover:shadow-lg',
+                              !isSelected && 'shadow-md'
+                            )}
+                          >
+                            <div className="flex justify-between items-start mb-3">
+                              <div className="font-mono text-meta text-text-tertiary">{event.time}</div>
+                              {event.video && (
+                                <span className="text-bodySmall text-text-tertiary glass px-3 py-1 rounded-full border border-border-default">
+                                  📹 Video
+                                </span>
+                              )}
+                            </div>
+                            <div
+                              className={cn(
+                                'text-text-primary mb-2 text-body',
+                                isSelected ? 'font-semibold' : 'font-medium'
+                              )}
+                            >
+                              {event.event}
+                            </div>
+                            <div className="text-text-secondary text-bodySmall leading-relaxed">{event.details}</div>
+                            {event.notes && event.notes.length > 0 && (
+                              <div className="mt-3 text-meta text-text-tertiary">
+                                {event.notes.length} note{event.notes.length !== 1 ? 's' : ''}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
 
             {/* Generate Report Button */}
             <div className="mt-6">
-              <button 
+              <Button
+                variant="primary"
+                className="w-full"
                 onClick={() => {
                   const report = {
                     incident: 'Gallery 3, 2:37 AM',
                     timeline: timeline,
                     summary: 'False alarm - Maintenance worker',
-                    generatedAt: new Date().toISOString()
+                    generatedAt: new Date().toISOString(),
                   };
                   const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
                   const url = URL.createObjectURL(blob);
@@ -147,69 +182,73 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
                   a.click();
                   URL.revokeObjectURL(url);
                 }}
-                className="w-full bg-info text-white font-semibold py-3 px-6 rounded-md hover:bg-info-hover active:bg-info/80 transition-all duration-150 min-h-[48px] shadow-md hover:shadow-lg focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2"
               >
                 Generate Incident Report
-              </button>
+              </Button>
             </div>
           </div>
 
           {/* Evidence Panel (Right - 60%) */}
           <div className="lg:col-span-7">
-            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-6 shadow-md">
-              <h2 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-6">Evidence Panel</h2>
-              {selectedEventId ? (() => {
-                const event = timeline.find((e: any) => e.id === selectedEventId);
-                if (!event) return null;
-                return (
+            <Card variant="glass">
+              <CardHeader>
+                <CardTitle className="text-sectionHeader font-semibold text-text-primary">
+                  Evidence Panel
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {selectedEvent ? (
                   <div className="space-y-6 animate-fade-in">
                     {/* Video Evidence */}
-                    {event.video && (
-                      <div className="bg-white/[0.02] border border-white/5 rounded-lg overflow-hidden shadow-md">
-                        <div className="bg-white/[0.02] border-b border-white/5 px-4 py-3 flex justify-between items-center">
-                          <div className="flex items-center gap-2">
-                            <span className="text-[11px] font-semibold text-white/60 uppercase tracking-[0.5px]">Playback</span>
+                    {selectedEvent.video && (
+                      <div className="glass rounded-xl overflow-hidden shadow-lg">
+                        <div className="bg-bg-raised border-b border-border-default px-6 py-4 flex justify-between items-center">
+                          <div className="flex items-center gap-3">
+                            <span className="text-label font-semibold text-text-tertiary uppercase tracking-wider">
+                              Playback
+                            </span>
                           </div>
-                          <span className="text-white/50 text-xs font-mono">{event.time}</span>
+                          <span className="text-meta text-text-tertiary font-mono">{selectedEvent.time}</span>
                         </div>
-                        <div className="bg-black/40 aspect-video flex items-center justify-center relative">
-                          <div className="text-white/30 text-sm">📹 {event.event}</div>
-                          <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded text-white text-xs border border-white/10">
-                            {event.time}
+                        <div className="bg-black/60 aspect-video flex items-center justify-center relative backdrop-blur-sm">
+                          <div className="text-text-tertiary text-body">📹 {selectedEvent.event}</div>
+                          <div className="absolute bottom-6 right-6 glass rounded-lg px-4 py-2 text-text-primary text-bodySmall">
+                            {selectedEvent.time}
                           </div>
                         </div>
                       </div>
                     )}
 
                     {/* Sensor Data Snapshot */}
-                    {event.sensorData && (
-                      <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4 shadow-sm">
-                        <h3 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Sensor Data at {event.time}</h3>
-                        <div className="grid grid-cols-3 gap-3">
-                          {Object.entries(event.sensorData).map(([key, value]: [string, any]) => (
-                            <div key={key} className="bg-white/[0.02] border border-white/5 rounded-lg p-3">
-                              <div className="text-[11px] font-semibold text-white/40 uppercase mb-2 tracking-[0.5px]">{key}</div>
-                              <div className="text-white font-semibold text-xl">{value}%</div>
-                            </div>
+                    {selectedEvent.sensorData && (
+                      <div className="glass rounded-xl p-6 shadow-md">
+                        <h3 className="text-sectionHeader font-semibold text-text-primary mb-6">
+                          Sensor Data at {selectedEvent.time}
+                        </h3>
+                        <div className="grid grid-cols-3 gap-4">
+                          {Object.entries(selectedEvent.sensorData).map(([key, value]: [string, any]) => (
+                            <KPITile key={key} label={key} value={`${value}%`} />
                           ))}
                         </div>
                       </div>
                     )}
 
                     {/* Decision Notes Preview */}
-                    {event.notes && event.notes.length > 0 && (
-                      <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4 shadow-sm">
-                        <h3 className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.5px] mb-4">Decision Notes</h3>
-                        <div className="space-y-3">
-                          {event.notes.slice(0, 2).map((note: any, index: number) => (
-                            <div key={index} className="bg-white/[0.02] border-l-2 border-blue-500/30 rounded-lg p-3">
-                              <div className="text-white/60 font-medium text-xs mb-1">{note.author}</div>
-                              <div className="text-white/70 text-xs line-clamp-2">{note.text}</div>
+                    {selectedEvent.notes && selectedEvent.notes.length > 0 && (
+                      <div className="glass rounded-xl p-6 shadow-md">
+                        <h3 className="text-sectionHeader font-semibold text-text-primary mb-6">
+                          Decision Notes
+                        </h3>
+                        <div className="space-y-4">
+                          {selectedEvent.notes.slice(0, 2).map((note: any, index: number) => (
+                            <div key={index} className="glass rounded-xl p-4 border-l-4 border-accent-primary">
+                              <div className="text-text-secondary font-medium text-bodySmall mb-2">{note.author}</div>
+                              <div className="text-text-secondary text-bodySmall leading-relaxed">{note.text}</div>
                             </div>
                           ))}
-                          {event.notes.length > 2 && (
-                            <div className="text-white/40 text-xs">
-                              +{event.notes.length - 2} more note{event.notes.length - 2 !== 1 ? 's' : ''}
+                          {selectedEvent.notes.length > 2 && (
+                            <div className="text-text-tertiary text-bodySmall">
+                              +{selectedEvent.notes.length - 2} more note{selectedEvent.notes.length - 2 !== 1 ? 's' : ''}
                             </div>
                           )}
                         </div>
@@ -217,28 +256,22 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
                     )}
 
                     {/* View Full Details Button */}
-                    <button
-                      onClick={() => onEventClick(event.id)}
-                      className="w-full bg-info text-white font-semibold py-3 px-6 rounded-md hover:bg-info-hover active:bg-info/80 transition-all duration-150 min-h-[48px] shadow-md hover:shadow-lg focus-visible:outline-2 focus-visible:outline-info focus-visible:outline-offset-2"
-                    >
+                    <Button variant="primary" className="w-full" onClick={() => onEventClick(selectedEvent.id)}>
                       View Full Details & Annotations
-                    </button>
+                    </Button>
                   </div>
-                );
-              })() : (
-                <div className="text-center py-16 text-white/30">
-                  <div className="text-5xl mb-4 opacity-50">📋</div>
-                  <div className="text-sm mb-2 text-white/50">Click a timeline event to view detailed evidence</div>
-                  <div className="text-xs text-white/30 mt-4">
-                    Select any event from the timeline to see video, sensor data, and decision notes
-                  </div>
-                </div>
-              )}
-            </div>
+                ) : (
+                  <EmptyState
+                    icon="📋"
+                    title="Click a timeline event to view detailed evidence"
+                    description="Select any event from the timeline to see video, sensor data, and decision notes"
+                  />
+                )}
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
