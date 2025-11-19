@@ -26,12 +26,12 @@ export default function EvidenceDetail({ data, onBack }: EvidenceDetailProps) {
       <div className="max-w-5xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="mb-10">
-          <button
-            onClick={onBack}
+            <button
+              onClick={onBack}
             className="text-white/60 hover:text-white/80 mb-4 flex items-center gap-2 text-sm transition-colors duration-200"
-          >
-            ← Back to Timeline
-          </button>
+            >
+              ← Back to Timeline
+            </button>
           <h1 className="text-2xl font-semibold text-white mb-2 tracking-tight">Evidence Detail</h1>
           <p className="text-sm text-white/50">{event.event} — {event.time}</p>
         </div>

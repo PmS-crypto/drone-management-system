@@ -92,37 +92,37 @@ export default function PostIncidentTimeline({ data, onEventClick }: PostInciden
                   {timeline.map((event: any, index: number) => {
                     const colors = getEventColor(event.type);
                     return (
-                      <div
-                        key={event.id}
-                        className="relative flex items-start gap-4 cursor-pointer group"
-                        onClick={() => {
-                          setSelectedEventId(event.id);
-                        }}
-                      >
-                        {/* Timeline Dot */}
+                    <div
+                      key={event.id}
+                      className="relative flex items-start gap-4 cursor-pointer group"
+                      onClick={() => {
+                        setSelectedEventId(event.id);
+                      }}
+                    >
+                      {/* Timeline Dot */}
                         <div className={`relative z-10 w-12 h-12 rounded-full border flex items-center justify-center text-lg ${colors.dot} group-hover:scale-110 transition-all duration-200`}>
-                          {getEventIcon(event.type)}
-                        </div>
+                        {getEventIcon(event.type)}
+                      </div>
 
-                        {/* Event Card */}
+                      {/* Event Card */}
                         <div className={`flex-1 border rounded-lg p-4 ${colors.bg} ${colors.border} ${selectedEventId === event.id ? 'ring-2 ring-blue-500/30 border-blue-500/40' : ''} group-hover:border-white/20 transition-all duration-200`}>
-                          <div className="flex justify-between items-start mb-2">
+                        <div className="flex justify-between items-start mb-2">
                             <div className="font-mono text-white/50 text-xs">{event.time}</div>
-                            {event.video && (
+                          {event.video && (
                               <span className="text-xs text-white/40 bg-white/5 px-2 py-1 rounded border border-white/5">
-                                📹 Video
-                              </span>
-                            )}
-                          </div>
-                          <div className="text-white font-medium mb-1 text-sm">{event.event}</div>
-                          <div className="text-white/60 text-sm">{event.details}</div>
-                          {event.notes && event.notes.length > 0 && (
-                            <div className="mt-2 text-xs text-white/40">
-                              {event.notes.length} note{event.notes.length !== 1 ? 's' : ''}
-                            </div>
+                              📹 Video
+                            </span>
                           )}
                         </div>
+                          <div className="text-white font-medium mb-1 text-sm">{event.event}</div>
+                          <div className="text-white/60 text-sm">{event.details}</div>
+                        {event.notes && event.notes.length > 0 && (
+                            <div className="mt-2 text-xs text-white/40">
+                            {event.notes.length} note{event.notes.length !== 1 ? 's' : ''}
+                          </div>
+                        )}
                       </div>
+                    </div>
                     );
                   })}
                 </div>

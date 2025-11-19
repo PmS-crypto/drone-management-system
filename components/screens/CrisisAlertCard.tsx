@@ -92,7 +92,7 @@ export default function CrisisAlertCard({ data, onDeploy, onManualReview }: Cris
               </div>
               <div className="text-xs text-white/50">
                 Reliable today (1 false alarm logged)
-              </div>
+            </div>
             </div>
 
             {/* Recommended Action */}
@@ -100,7 +100,7 @@ export default function CrisisAlertCard({ data, onDeploy, onManualReview }: Cris
               <div className="text-xs font-medium text-white/40 uppercase tracking-wider mb-1">Recommended Action</div>
               <div className="text-base font-medium text-white">
                 {alert.recommendedAction} <span className="text-white/50">(ETA: {alert.eta}s)</span>
-              </div>
+          </div>
             </div>
           </div>
         </div>

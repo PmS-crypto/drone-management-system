@@ -136,12 +136,12 @@ export default function GuardCoordination({ data, onComplete }: GuardCoordinatio
 
         {/* Complete Button */}
         {messageSent && statusTicker.length > 2 && (
-          <button
-            onClick={onComplete}
+            <button
+              onClick={onComplete}
             className="w-full bg-green-500 text-white font-medium py-3.5 px-6 rounded-lg hover:bg-green-600 transition-all duration-200 min-h-[48px] shadow-lg shadow-green-500/20"
-          >
+            >
             Incident Resolved — Return to Alert Screen
-          </button>
+            </button>
         )}
       </div>
     </div>

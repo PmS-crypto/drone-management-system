@@ -47,7 +47,7 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
         <div className="mb-8">
           <div className="mb-3">
             <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider">Sensor Data</h2>
-          </div>
+            </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
               { label: 'Motion', value: `${sensors.motion}%` },
@@ -61,7 +61,7 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
               >
                 <div className="text-xs font-medium text-white/40 mb-2">{sensor.label}</div>
                 <div className="text-xl font-semibold text-white tracking-tight">{sensor.value}</div>
-              </div>
+            </div>
             ))}
           </div>
         </div>
@@ -170,7 +170,7 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
         <div className="mb-8">
           <div className="mb-3">
             <h2 className="text-xs font-medium text-white/40 uppercase tracking-wider">Broadcast Recipients</h2>
-          </div>
+            </div>
           <div className="flex items-center gap-3">
             <div className="flex -space-x-2">
               {['M', 'I', 'S'].map((initial, idx) => (
@@ -179,7 +179,7 @@ export default function ThreatAssessment({ data, onBroadcast }: ThreatAssessment
                   className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-sm font-medium text-white/80 backdrop-blur-sm"
                 >
                   {initial}
-                </div>
+            </div>
               ))}
             </div>
             <div className="text-sm text-white/60">Marc, Isabelle, Sophie</div>
